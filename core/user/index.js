@@ -16,6 +16,10 @@
 	
 	var user = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	user.initialize = function () {
 		global.cliste.core.database.addSchema('user', {
 			'firstName': 'string',
@@ -25,22 +29,30 @@
 		global.cliste.core.database.addModel('user');
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	user.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	/**
+	 * Add a new user to the system
+     * @param {Object} data
+     *		The user data to add
+	 */
 	user.addUser = function (data) {
 	
 		global.cliste.core.database.addDocument('user', data);
 		
 	};
 	
-	user.setSchema = function (schema) {
-		
-	};
-	
+	/**
+	 * Return the user module to the global scope
+	 */	
 	module.exports = user;
 	
 }());
