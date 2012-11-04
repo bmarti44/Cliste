@@ -20,17 +20,32 @@
 		schemas = {},
 		models = {},
 		documents = {};
-		
+	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	database.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	database.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	/**
+	 * Add a schema to be used by mongodb
+     * @param {Object} name
+     *		The name of the schema
+     * @param {Object} schema
+     *		The schema
+	 */
 	database.addSchema = function (name, schema) {
 		
 		if (typeof(schemas[name]) === 'undefined') {
@@ -39,6 +54,11 @@
 		
 	};
 	
+	/**
+	 * Add a new model to be used by mongodb
+     * @param {Object} name
+     *		The name of the new model
+	 */
 	database.addModel = function (name) {
 		
 		if (typeof(models[name]) === 'undefined') {
@@ -47,6 +67,13 @@
 		
 	};
 	
+	/**
+	 * Add a new document to mongodb
+     * @param {Object} name
+     *		The name of the model
+     * @param {Object} data
+     *		The data to insert
+	 */
 	database.addDocument = function (name, data) {
 		
 		if (typeof(documents[name]) === 'undefined') {
@@ -60,12 +87,24 @@
 		});
 	};
 	
+	/**
+	 * Perform a query on the current database
+     * @param {Object} name
+     *		The name of the model
+     * @param {Object} query
+     *		The query to execute
+     * @param {Object} callback
+     *		The function to call when the query is complete
+	 */
 	database.getDocuments = function (name, query, callback) {
 		
 		models[name].find(query, callback);
 		
 	};
 	
+	/**
+	 * Return the admin module to the global scope
+	 */
 	module.exports = database;
 	
 }());

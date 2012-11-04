@@ -17,16 +17,29 @@
 	var cliste = {},
 		headers = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	cliste.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	cliste.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	/**
+	 * Set the headers to output for the current page
+     * @param {Object} header
+     *		The header(s) to set
+	 */
 	cliste.setHeader = function (header) {
 		Object.keys(header).forEach(function(key) {
 		    
@@ -35,14 +48,18 @@
 		});
 	};
 	
-	cliste.getHeaders = function (header) {
+	/**
+	 * Get the headers to output for the current page
+     * @return {Object}
+     *		The header(s)
+	 */
+	cliste.getHeaders = function () {
 		return headers;
 	};
 	
-	cliste.update = function () {
-		
-	};
-		
+	/**
+	 * Return the admin module to the global scope
+	 */
 	module.exports = cliste;
 	
 }());

@@ -16,16 +16,27 @@
 	
 	var content = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	content.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	content.config = function () {
 		return {
 			'weight': 0
 		};
 	};
-		
+	
+	/**
+	 * Return the admin module to the global scope
+	 */
 	module.exports = content;
 	
 }());
