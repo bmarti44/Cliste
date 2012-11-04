@@ -16,16 +16,27 @@
 	
 	var form = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	form.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	form.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	/**
+	 * Return the form module to the global scope
+	 */
 	module.exports = form;
 	
 }());

@@ -16,16 +16,27 @@
 	
 	var permission = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	permission.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	permission.config = function () {
 		return {
 			'weight': 0
 		};
 	};
-		
+	
+	/**
+	 * Return the permission module to the global scope
+	 */	
 	module.exports = permission;
 	
 }());

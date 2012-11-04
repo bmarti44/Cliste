@@ -18,16 +18,29 @@
 		path = {},
 		paths = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	path.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	path.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	/**
+	 * Add a new path to the system
+     * @param {Object} newPath
+     *		The new path to add (excluding the domain name)
+	 */
 	path.addPath = function (newPath) {
 		Object.keys(newPath).forEach(function(key) {
 		    
@@ -36,30 +49,43 @@
 		});
 	};
 	
-	path.getFilePath = function (type, module, path) {
+	/**
+	 * Get the file path for a file in the core, module or theme folders
+     * @param {Object} type
+     *		Either core, module or theme
+     * @param {Object} name
+     *		The name of the core, module or theme
+     * @param {Object} path
+     *		The path to the core, module or theme inside the core, module or theme folder
+	 */
+	path.getFilePath = function (type, name, path) {
 		
 		if (type === 'core') {
-			return global.cliste.settings.base + '/' + type + '/' + module + '/' + path;
+			return global.cliste.settings.base + '/' + type + '/' + name + '/' + path;
 		}
 		
 		if (type === 'module') {
-			return global.cliste.settings.base + '/sites/all/' + type + '/' + module + '/' + path;
+			return global.cliste.settings.base + '/sites/all/' + type + '/' + name + '/' + path;
 		}
 		
 		if (type === 'theme') {
-			return global.cliste.settings.base + '/sites/all/' + type + '/' + module + '/' + path;
+			return global.cliste.settings.base + '/sites/all/' + type + '/' + name + '/' + path;
 		}
 		
 	};
 	
+	/**
+	 * Get the currently set paths
+	 * @return {Object}
+	 *		An object literal of all current paths
+	 */
 	path.getPaths = function () {
 		return paths;
 	};
 	
-	path.update = function () {
-		
-	};
-		
+	/**
+	 * Return the path module to the global scope
+	 */	
 	module.exports = path;
 	
 }());

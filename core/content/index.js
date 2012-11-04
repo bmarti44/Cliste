@@ -3,7 +3,7 @@
 
 /**
  *	@description
- *		Ding is a class used to manage elements, events and timers
+ *		This module will control the content types for cliste
  *	@author
  *		Brian Martin
  *	@version
@@ -35,7 +35,7 @@
 	};
 	
 	/**
-	 * Return the admin module to the global scope
+	 * Return the content module to the global scope
 	 */
 	module.exports = content;
 	

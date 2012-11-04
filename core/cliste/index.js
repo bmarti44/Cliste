@@ -3,7 +3,7 @@
 
 /**
  *	@description
- *		Ding is a class used to manage elements, events and timers
+ *		This module will be the main controller for cliste
  *	@author
  *		Brian Martin
  *	@version

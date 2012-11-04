@@ -3,13 +3,13 @@
 
 /**
  *	@description
- *		Ding is a class used to manage elements, events and timers
+ *		This module will act as the Database API for cliste
  *	@author
  *		Brian Martin
  *	@version
  *		1.0.0
  *	@namespace
- *		Cliste
+ *		Database
  */
 (function() {
 	'use strict';
@@ -103,7 +103,7 @@
 	};
 	
 	/**
-	 * Return the admin module to the global scope
+	 * Return the database module to the global scope
 	 */
 	module.exports = database;
 	
