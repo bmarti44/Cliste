@@ -77,7 +77,7 @@
 							html = global.cliste.core.file.getFile(global.cliste.settings.base + url);
 						} else {
 							global.cliste.core.cliste.setHeader({
-							'Content-Type': 'text/html'
+								'Content-Type': 'text/html'
 							});
 							response.writeHead(404, headers);
 							html = global.cliste.core.theme.get404();
