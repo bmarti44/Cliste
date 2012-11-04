@@ -38,7 +38,7 @@ An example of the home module:
 				global.cliste.core.path.addPath({
 					'/home': {	// add a new virtual path
 						'type': 'module', // adding a new module, versus a theme
-						'module': 'home',  // the module name
+						'name': 'home',  // the name of the module/theme
 						'template': 'getHTML'	// the name of the function that returns the content
 					}
 				});

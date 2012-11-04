@@ -57,7 +57,7 @@
 						url = request.url;
 					}
 					
-					html = global.cliste[paths[url].type][paths[url].module][paths[url].template]();
+					html = global.cliste[paths[url].type][paths[url].name][paths[url].template]();
 					
 				} else {
 					

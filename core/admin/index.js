@@ -20,7 +20,7 @@
 		global.cliste.core.path.addPath({
 			'/admin': {
 				'type': 'core',
-				'module': 'admin',
+				'name': 'admin',
 				'template': 'getHTML'
 			}
 		});

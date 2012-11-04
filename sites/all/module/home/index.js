@@ -20,7 +20,7 @@
 		global.cliste.core.path.addPath({
 			'/home': {
 				'type': 'module',
-				'module': 'home',
+				'name': 'home',
 				'template': 'getHTML'
 			}
 		});
