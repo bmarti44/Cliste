@@ -18,13 +18,14 @@
 	
 	bootstrap.initialize = function () {
 		global.cliste.core.theme.addCSS({
-			'bootstrap.css': '<link rel="stylesheet" href="/sites/all/theme/bootstrap/css/bootstrap.min.css" type="text/css" media="screen">',
-			'bootstrap.responsive.css': '<link rel="stylesheet" href="/sites/all/theme/bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="screen">',
-			'app.css': '<link rel="stylesheet" href="/sites/all/theme/bootstrap/css/app.css" type="text/css" media="screen">'
+			'bootstrap.css': '<link rel="stylesheet" href="/sites/all/file/css/bootstrap/bootstrap.min.css" type="text/css" media="screen">',
+			'bootstrap.responsive.css': '<link rel="stylesheet" href="/sites/all/file/css/bootstrap/bootstrap-responsive.min.css" type="text/css" media="screen">',
+			'app.css': '<link rel="stylesheet" href="/sites/all/file/css/bootstrap/app.css" type="text/css" media="screen">'
 		});
 		
 		global.cliste.core.theme.addJS({
-			'jquery': '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>'
+			'jquery': '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>',
+			'bootstrap': '<script type="text/javascript" src="/sites/all/file/js/bootstrap/bootstrap.min.js"></script>'
 		});
 	};
 	

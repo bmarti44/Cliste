@@ -18,10 +18,10 @@
 	themes = requireDir('./sites/all/theme', {recurse: true});
 	
 	global.cliste = {
-			'settings': settings,
-			'core': core,
-			'module': modules,
-			'themes': themes
+		'settings': settings,
+		'core': core,
+		'module': modules,
+		'themes': themes
 	};
 
 	Object.keys(core).forEach(function(key) {
