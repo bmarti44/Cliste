@@ -9,7 +9,7 @@
  *	@version
  *		1.0.0
  *	@namespace
- *		Cliste
+ *		Home
  */
 (function() {
 	'use strict';

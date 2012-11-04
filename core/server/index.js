@@ -52,7 +52,7 @@
 		http.createServer(function(request, response) {
 			
 			try {
-				
+				asdfsdf
 				// if there is a valid path or valid alias
 				if (typeof(paths[request.url]) !== 'undefined' || typeof(aliases[request.url]) !== 'undefined') {
 					// force the header to be text/html
@@ -119,35 +119,19 @@
 				
 				console.log(exception); // log the exception to the server
 				
-				// if the environment is a development environment
-				if (global.cliste.settings.environment === 'development') {
-					
-					// set the content type to text
-					global.cliste.core.cliste.setHeader({
-						'Content-Type': 'text/plain'
-					});
-					
-					// write out the headers
-					response.writeHead(404, headers);
-					// write the exception to the server and error out gracefully
-					html = exception.toString();
-					response.write(html);
-					response.end();
-					
-				} else { // the environment is production
-					
-					// set the content type to text/html
-					global.cliste.core.cliste.setHeader({
-						'Content-Type': 'text/html'
-					});
-					
-					// do a 404 not found
-					response.writeHead(404, headers);
-					// write out the 404 page gracefully, with no error
-					html = global.cliste.core.theme.get404();
-					response.write(html);
-					response.end();
-				}
+				// set the content type to text
+				global.cliste.core.cliste.setHeader({
+					'Content-Type': 'text/plain'
+				});
+				
+				// write out the headers
+				response.writeHead(404, headers);
+				// write the exception to the server and error out gracefully
+				html = exception.toString();
+				
+				response.write(html);
+				response.end();
+				
 			}
 			
 		}).listen(global.cliste.settings.port);
