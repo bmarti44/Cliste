@@ -16,8 +16,54 @@
 	core = requireDir('./core', {recurse: true});
 	modules = requireDir('./sites/all/module', {recurse: true});
 	themes = requireDir('./sites/all/theme', {recurse: true});
-	processor = require('./processor.js');
 	
-	processor.initialize(settings, core, modules, themes);
+	global.cliste = {
+			'settings': settings,
+			'core': core,
+			'module': modules,
+			'themes': themes
+	};
+
+	Object.keys(core).forEach(function(key) {
+	    
+		core[key] = core[key].index;
+	    
+	});
+	
+	Object.keys(modules).forEach(function(key) {
+	    
+	    modules[key] = modules[key].index;
+	    
+	});
+	
+	Object.keys(themes).forEach(function(key) {
+	    
+	    themes[key] = themes[key].index;
+	    
+	});
+	
+	Object.keys(core).forEach(function(key) {
+	    
+	    if (typeof(core[key].initialize) !== 'undefined') {
+			core[key].initialize();
+	    }
+	    
+	});
+	
+	Object.keys(modules).forEach(function(key) {
+	    
+	    if (typeof(modules[key].initialize) !== 'undefined') {
+			modules[key].initialize();
+	    }
+	    
+	});
+	
+	Object.keys(themes).forEach(function(key) {
+	    
+	    if (typeof(themes[key].initialize) !== 'undefined') {
+			themes[key].initialize();
+	    }
+	    
+	});
 	
 }());
