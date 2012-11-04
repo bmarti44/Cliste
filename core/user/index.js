@@ -17,7 +17,12 @@
 	var user = {};
 	
 	user.initialize = function () {
-		
+		global.cliste.core.database.addSchema('user', {
+			'firstName': 'string',
+			'lastName': 'string'
+		});
+	
+		global.cliste.core.database.addModel('user');
 	};
 	
 	user.config = function () {
@@ -25,7 +30,17 @@
 			'weight': 0
 		};
 	};
+	
+	user.addUser = function (data) {
+	
+		global.cliste.core.database.addDocument('user', data);
 		
+	};
+	
+	user.setSchema = function (schema) {
+		
+	};
+	
 	module.exports = user;
 	
 }());

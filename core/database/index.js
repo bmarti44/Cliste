@@ -14,8 +14,13 @@
 (function() {
 	'use strict';
 	
-	var database = {};
-	
+	var database = {},
+		mongoose = require('mongoose'),
+		db = mongoose.createConnection('localhost', 'cliste'),
+		schemas = {},
+		models = {},
+		documents = {};
+		
 	database.initialize = function () {
 		
 	};
@@ -25,7 +30,42 @@
 			'weight': 0
 		};
 	};
+	
+	database.addSchema = function (name, schema) {
 		
+		if (typeof(schemas[name]) === 'undefined') {
+			schemas[name] = mongoose.Schema(schema);
+		}
+		
+	};
+	
+	database.addModel = function (name) {
+		
+		if (typeof(models[name]) === 'undefined') {
+			models[name] = db.model(name, schemas[name]);
+		}
+		
+	};
+	
+	database.addDocument = function (name, data) {
+		
+		if (typeof(documents[name]) === 'undefined') {
+			documents[name] = new models[name](data);
+		}
+		
+		documents[name].save(function (error) {
+			if (error) {
+				console.log(error);
+			}
+		});
+	};
+	
+	database.getDocuments = function (name, query, callback) {
+		
+		models[name].find(query, callback);
+		
+	};
+	
 	module.exports = database;
 	
 }());
