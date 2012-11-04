@@ -17,7 +17,27 @@
 	var admin = {};
 	
 	admin.initialize = function () {
+		global.cliste.core.path.addPath({
+			'/admin': {
+				'type': 'core',
+				'module': 'admin',
+				'template': 'getHTML'
+			}
+		});
 		
+		global.cliste.core.theme.addTheme({
+			'admin': {
+				'parent': 'page-admin',
+				'view': global.cliste.core.file.getSource('core', 'admin', 'template/admin.handlebars'),
+				'model': {
+					'text': 'admin page'
+				}
+			}
+		});
+	};
+	
+	admin.getHTML = function () {
+		return global.cliste.core.theme.process('admin');
 	};
 	
 	admin.config = function () {
