@@ -99,14 +99,30 @@
 				response.end();
 				
 			} catch (exception) {
+				
 				console.log(exception);
-				global.cliste.core.cliste.setHeader({
-					'Content-Type': 'text/html'
-				});
-				response.writeHead(404, headers);
-				html = global.cliste.core.theme.get404();
-				response.write(html);
-				response.end();
+				
+				if (global.cliste.settings.environment === 'development') {
+					
+					global.cliste.core.cliste.setHeader({
+						'Content-Type': 'text/plain'
+					});
+					
+					response.writeHead(404, headers);
+					html = exception.toString();
+					response.write(html);
+					response.end();
+					
+				} else {
+					global.cliste.core.cliste.setHeader({
+						'Content-Type': 'text/html'
+					});
+					
+					response.writeHead(404, headers);
+					html = global.cliste.core.theme.get404();
+					response.write(html);
+					response.end();
+				}
 			}
 			
 		}).listen(global.cliste.settings.port);
