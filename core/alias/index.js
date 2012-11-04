@@ -3,13 +3,13 @@
 
 /**
  *	@description
- *		Ding is a class used to manage elements, events and timers
+ *		This module will provide URL aliases for paths in the cliste system
  *	@author
  *		Brian Martin
  *	@version
  *		1.0.0
  *	@namespace
- *		Cliste
+ *		Alias
  */
 (function() {
 	'use strict';
@@ -18,16 +18,29 @@
 		alias = {},
 		aliases = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	alias.initialize = function () {
 		
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	alias.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	/**
+	 * Add a new alias to the system
+     * @param {Object} newAlias
+     *		The new alias to add to the system
+	 */
 	alias.addAlias = function (newAlias) {
 		Object.keys(newAlias).forEach(function(key) {
 		    
@@ -36,10 +49,18 @@
 		});
 	};
 	
+	/**
+	 * Return an object literal of all aliases currently on the system
+	 * @return {Object}
+	 *		An object literal of all aliases
+	 */
 	alias.getAliases = function () {
 		return aliases;
 	};
-		
+	
+	/**
+	 * Return the admin module to the global scope
+	 */
 	module.exports = alias;
 	
 }());

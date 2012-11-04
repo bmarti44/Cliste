@@ -14,29 +14,18 @@
 (function() {
 	'use strict';
 	
-	var cache = {};
+	var form = {};
 	
-	/**
-	 * Implementation of hook.initialize()
-	 * This will be called once when the server starts
-	 */
-	cache.initialize = function () {
+	form.initialize = function () {
 		
 	};
 	
-	/**
-	 * Implementation of hook.config()
-	 * This will return configuration options for this module
-	 */
-	cache.config = function () {
+	form.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
-	/**
-	 * Return the admin module to the global scope
-	 */
-	module.exports = cache;
+	module.exports = form;
 	
 }());
