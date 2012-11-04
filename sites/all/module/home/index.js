@@ -34,7 +34,7 @@
 				'parent': 'page',
 				'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'),
 				'model': {
-					'text': 'holy mowley'
+					'text': 'frontpage'
 				}
 			}
 		});
