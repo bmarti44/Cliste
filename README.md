@@ -23,7 +23,9 @@ npm install mime
 
 npm install handlebars
 
-Once the Database API has been finished, MongoDB will also be required.
+npm install mongodb
+
+npm install mongoose
 
 Module Creation
 --------
@@ -83,4 +85,6 @@ Compatibility
 -------------
 1. Requires [Node.js](https://github.com/joyent/node "Node.js") 
 2. Requires [Handlebars.js](https://github.com/wycats/handlebars.js/ "Handlebars.js")
+3. Requires [MongoDB](http://www.mongodb.org "MongoDB")
+4. Requires [Mongoose](http://mongoosejs.com/ "Mongoose")
  
