@@ -52,7 +52,7 @@
 		http.createServer(function(request, response) {
 			
 			try {
-				asdfsdf
+				
 				// if there is a valid path or valid alias
 				if (typeof(paths[request.url]) !== 'undefined' || typeof(aliases[request.url]) !== 'undefined') {
 					// force the header to be text/html
