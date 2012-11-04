@@ -24,7 +24,7 @@
 		});
 		
 		global.cliste.core.theme.addJS({
-			'jquery': '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>',
+			'jquery': '<script type="text/javascript" src="/sites/all/file/js/jquery/jquery.js"></script>',
 			'bootstrap': '<script type="text/javascript" src="/sites/all/file/js/bootstrap/bootstrap.min.js"></script>'
 		});
 	};
