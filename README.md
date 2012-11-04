@@ -9,7 +9,7 @@ What is it?
 -----------
 Cliste CMS utilizes Node.js and Handlebars.js to create a 100% JavaScript based CMS. This is currently a work in progress
 and does not yet support all functionalities you would expect in a CMS. User Management, Permissions, Database API and Forms are still
-outstanding components. Implemented components include the Server, Virtual Paths, Themeing, File Management and Aliases. This
+outstanding components. Implemented components include the Server, Virtual Paths, Theming, File Management and Aliases. This
 CMS has been inspired by Drupal and follows many of the file/folder structures developed by Drupal. That said, this is not
 a Drupal clone by any means, although there are many similiarities. 
 
@@ -33,43 +33,61 @@ An example of the home module:
 			
 			var home = {};
 			
-			// the initialze function gets called once when the server starts
+			/**
+			 * Implementation of hook.initialize()
+			 * This will be called once when the server starts
+			 */
 			home.initialize = function () {
+				// add a new path for the home page
 				global.cliste.core.path.addPath({
-					'/home': {	// add a new virtual path
-						'type': 'module', // adding a new module, versus a theme
-						'name': 'home',  // the name of the module/theme
-						'template': 'getHTML'	// the name of the function that returns the content
+					'/home': {
+						'type': 'module',
+						'name': 'home',
+						'template': 'getHTML'
 					}
 				});
 				
+				// add a new alias, and point it at the home page
 				global.cliste.core.alias.addAlias({
-					'/': '/home'	// add an alias for /home
+					'/': '/home'
 				});
 				
+				// add a new theme for the home page
 				global.cliste.core.theme.addTheme({
-					'home': {
-						'parent': 'page',	// parent theme, gets passed the home theme
-						'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'),
-						'model': {	// the data model to pass to the handlebars template
-							'text': 'holy mowley'
+					'home': { // name it home
+						'parent': 'page', // make it's parent page.handlebars
+						'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
+						'model': { // pass the model
+							'text': 'frontpage'
 						}
 					}
 				});
 				
 			};
 			
+			/**
+			 * Theme callback
+			 * @return {String}
+			 *		Return the HTML for the home page
+			 */
 			home.getHTML = function() {
-				return global.cliste.core.theme.process('home');	// use the themeing system to return the home theme
+				return global.cliste.core.theme.process('home');
 			};
 			
+			/**
+			 * Implementation of hook.config()
+			 * This will return configuration options for this module
+			 */
 			home.config = function () {
 				return {
-					'weight': 0		// set the weight, the order to execute the module
+					'weight': 0
 				};
 			};
-				
-			module.exports = home;	// return the module back so we can make the functions accessible globally
+			
+			/**
+			 * Return the user module to the global scope
+			 */	
+			module.exports = home;
 			
 		}());
 
