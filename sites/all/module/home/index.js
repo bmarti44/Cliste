@@ -16,7 +16,12 @@
 	
 	var home = {};
 	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	home.initialize = function () {
+		// add a new path for the home page
 		global.cliste.core.path.addPath({
 			'/home': {
 				'type': 'module',
@@ -25,15 +30,17 @@
 			}
 		});
 		
+		// add a new alias, and point it at the home page
 		global.cliste.core.alias.addAlias({
 			'/': '/home'
 		});
 		
+		// add a new theme for the home page
 		global.cliste.core.theme.addTheme({
-			'home': {
-				'parent': 'page',
-				'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'),
-				'model': {
+			'home': { // name it home
+				'parent': 'page', // make it's parent page.handlebars
+				'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
+				'model': { // pass the model
 					'text': 'frontpage'
 				}
 			}
@@ -41,22 +48,28 @@
 		
 	};
 	
+	/**
+	 * Theme callback
+	 * @return {String}
+	 *		Return the HTML for the home page
+	 */
 	home.getHTML = function() {
 		return global.cliste.core.theme.process('home');
 	};
 	
-	home.getData = function() {
-		return {
-			'data': 'none'
-		};	
-	};
-	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	home.config = function () {
 		return {
 			'weight': 0
 		};
 	};
-		
+	
+	/**
+	 * Return the user module to the global scope
+	 */	
 	module.exports = home;
 	
 }());
