@@ -17,20 +17,30 @@
 	var http = require("http"),
 		mime = require('mime'),
 		createServer,
-		server;
+		server = {};
 	
-	server = {};
-	
+	/**
+	 * Implementation of hook.initialize()
+	 * This will be called once when the server starts
+	 */
 	server.initialize = function () {
 		createServer();
 	};
 	
+	/**
+	 * Implementation of hook.config()
+	 * This will return configuration options for this module
+	 */
 	server.config = function () {
 		return {
 			'weight': 10
 		};
 	};
 	
+	/**
+	 * Create and manage the server connection
+	 * @private
+	 */
 	createServer = function () {
 		var headers = global.cliste.core.cliste.getHeaders(),
 			paths = global.cliste.core.path.getPaths(),
@@ -43,48 +53,54 @@
 			
 			try {
 				
+				// if there is a valid path or valid alias
 				if (typeof(paths[request.url]) !== 'undefined' || typeof(aliases[request.url]) !== 'undefined') {
-					
+					// force the header to be text/html
 					global.cliste.core.cliste.setHeader({
 						'Content-Type': 'text/html'
 					});
-					
+					// give a found response
 					response.writeHead(200, headers);
-					
+					// set the URL from the alias, or use the current URL
 					if (typeof(aliases[request.url]) !== 'undefined') {
 						url = aliases[request.url];
 					} else {
 						url = request.url;
 					}
-					
+					// get the HTML for the page based on the path
 					html = global.cliste[paths[url].type][paths[url].name][paths[url].template]();
 					
-				} else {
+				} else { // there is no path or alias for this URL
 					
-					if (typeof(aliases[request.url]) !== 'undefined') {
-						url = aliases[request.url];
-					} else {
-						url = request.url;
-					}
+					// set the URL
+					url = request.url;
 					
+					// if a real file exists at the requested URL
 					if (global.cliste.core.file.fileExists(global.cliste.settings.base + url)) {
 						
-						if (url.indexOf('/sites/all/file') !== -1) {
+						// if the URL is in the /sites/all/file folder
+						if (url.indexOf('/sites/all/file') === 0) {
+							
 							global.cliste.core.cliste.setHeader({
 								'Content-Type': mime.lookup(global.cliste.settings.base + request.url)
 							});
 							response.writeHead(200, headers);
 							html = global.cliste.core.file.getFile(global.cliste.settings.base + url);
-						} else {
+							
+						} else { // the URL is not in the /sites/all/file folder
+							
+							// since it isn't in the /sites/all/file folder, we don't want to show it
 							global.cliste.core.cliste.setHeader({
 								'Content-Type': 'text/html'
 							});
 							response.writeHead(404, headers);
 							html = global.cliste.core.theme.get404();
+							
 						}
 						
-					} else {
+					} else { // the file doesn't exist
 						
+						// show the 404 page
 						global.cliste.core.cliste.setHeader({
 							'Content-Type': 'text/html'
 						});
@@ -95,30 +111,39 @@
 					
 				}
 				
+				// write the generated HTML
 				response.write(html);
 				response.end();
 				
-			} catch (exception) {
+			} catch (exception) { // oops something went wrong!
 				
-				console.log(exception);
+				console.log(exception); // log the exception to the server
 				
+				// if the environment is a development environment
 				if (global.cliste.settings.environment === 'development') {
 					
+					// set the content type to text
 					global.cliste.core.cliste.setHeader({
 						'Content-Type': 'text/plain'
 					});
 					
+					// write out the headers
 					response.writeHead(404, headers);
+					// write the exception to the server and error out gracefully
 					html = exception.toString();
 					response.write(html);
 					response.end();
 					
-				} else {
+				} else { // the environment is production
+					
+					// set the content type to text/html
 					global.cliste.core.cliste.setHeader({
 						'Content-Type': 'text/html'
 					});
 					
+					// do a 404 not found
 					response.writeHead(404, headers);
+					// write out the 404 page gracefully, with no error
 					html = global.cliste.core.theme.get404();
 					response.write(html);
 					response.end();
@@ -129,6 +154,9 @@
 		
 	};
 	
+	/**
+	 * Return the form module to the global scope
+	 */
 	module.exports = server;
 	
 }());
