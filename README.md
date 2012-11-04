@@ -17,15 +17,7 @@ Setup
 ----------
 Download/clone this project to your system. Use npm to install:
 
-npm install require-dir
-
-npm install mime
-
-npm install handlebars
-
-npm install mongodb
-
-npm install mongoose
+npm install require-dir mime handlebars mongodb mongoose
 
 Module Creation
 --------
