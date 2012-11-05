@@ -12,7 +12,7 @@
 		themes,
 		processor;
 	
-	settings = require('./sites/all/default/settings.js');
+	settings = require('./sites/default/settings.js');
 	core = requireDir('./core', {recurse: true});
 	modules = requireDir('./sites/all/module', {recurse: true});
 	themes = requireDir('./sites/all/theme', {recurse: true});
