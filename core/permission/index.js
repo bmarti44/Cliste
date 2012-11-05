@@ -3,7 +3,7 @@
 
 /**
  *	@description
- *		Ding is a class used to manage elements, events and timers
+ *		This module will control user permissions
  *	@author
  *		Brian Martin
  *	@version
@@ -25,6 +25,10 @@
 	};
 	
 	permission.hasAccess = function (user) {
+		
+	};
+	
+	permission.addPermissions = function (newPermissions) {
 		
 	};
 	
