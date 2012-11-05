@@ -82,7 +82,7 @@
 					if (global.cliste.core.file.fileExists(global.cliste.settings.base + url)) {
 						
 						// if the URL is in the /sites/all/file folder
-						if (url.indexOf('/sites/all/file') === 0) {
+						if (url.indexOf('/sites/default/file') === 0) {
 							
 							request.addListener('end', function () {
 								

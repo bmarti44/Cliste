@@ -21,6 +21,18 @@ Download/clone this project to your system. Use npm to install:
 
 npm install require-dir handlebars mongodb mongoose node-static -g
 
+Update settings.js to include the correct path to Cliste
+
+Then go into the project, and run "node index.js"
+
+If you get a module not found error, don't forget to link it, like so:
+
+npm link require-dir
+
+Where require-dir is the name of the module
+
+Also, don't forget to make sure mongodb is running
+
 Module Creation
 --------
 1. To create a new module, create a new folder at /sites/all/module/{{module-name}}
