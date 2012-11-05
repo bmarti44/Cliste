@@ -15,7 +15,6 @@
 	'use strict';
 	
 	var http = require("http"),
-		mime = require('mime'),
 		httpStatic = require('node-static'),
 		createServer,
 		server = {};
@@ -72,7 +71,7 @@
 						url = request.url;
 					}
 					// get the HTML for the page based on the path
-					html = global.cliste[paths[url].type][paths[url].name][paths[url].template]();
+					html = global.cliste[paths[url].type][paths[url].name][paths[url].callback]();
 					
 				} else { // there is no path or alias for this URL
 					

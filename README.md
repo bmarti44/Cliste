@@ -19,7 +19,7 @@ Setup
 ----------
 Download/clone this project to your system. Use npm to install:
 
-npm install require-dir mime handlebars mongodb mongoose node-static -g
+npm install require-dir handlebars mongodb mongoose node-static -g
 
 Module Creation
 --------
@@ -45,7 +45,7 @@ An example of the home module:
 					'/home': {
 						'type': 'module',
 						'name': 'home',
-						'template': 'getHTML'
+						'callback': 'getHTML'
 					}
 				});
 				

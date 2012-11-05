@@ -25,7 +25,7 @@
 			'/admin': {
 				'type': 'core',
 				'name': 'admin',
-				'template': 'getHTML'
+				'callback': 'getHTML'
 			}
 		});
 		

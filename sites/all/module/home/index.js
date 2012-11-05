@@ -26,7 +26,7 @@
 			'/home': {
 				'type': 'module',
 				'name': 'home',
-				'template': 'getHTML'
+				'callback': 'getHTML'
 			}
 		});
 		
