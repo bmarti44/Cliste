@@ -1,0 +1,13 @@
+{
+    "name": "cliste-test",
+    "version": "0.0.1",
+    "description": "Test all modules and themes",
+    "preferGlobal": "true",
+    "bin": { 
+    	"cliste-test": "index.js" 
+    },
+    "author": "Brian Martin",
+    "engines": { 
+    	"node": "*" 
+    }
+}

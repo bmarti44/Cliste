@@ -50,6 +50,11 @@
 		
 	};
 	
+	user.tests = {
+		'test1': function (assert) {
+			assert.ok(false, 'testing this out');
+		}
+	};
 	/**
 	 * Return the user module to the global scope
 	 */	
