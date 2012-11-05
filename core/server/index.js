@@ -85,7 +85,36 @@
 						if (url.indexOf('/sites/all/file') === 0) {
 							
 							request.addListener('end', function () {
-						        fileServer.serve(request, response);
+								
+						        fileServer.serve(request, response, function (error, result) {
+									
+									if (error && (error.status === 404)) {
+										global.cliste.core.cliste.setHeader({
+											'Content-Type': 'text/html'
+										});
+										response.writeHead(404, headers);
+										html = global.cliste.core.theme.get404();
+										return true;
+									}
+									
+						            if (error) { // There was an error serving the file
+						                console.log(error);
+						                // Respond to the client
+						                global.cliste.core.cliste.setHeader({
+											'Content-Type': 'text/plain'
+										});
+										
+										// write out the headers
+										response.writeHead(500, headers);
+										// write the exception to the server and error out gracefully
+										html = error.toString();
+										
+										response.write(html);
+										response.end();
+						            }
+						            
+						        });
+						        
 						    });
 							
 							return true;
@@ -96,7 +125,9 @@
 						global.cliste.core.cliste.setHeader({
 							'Content-Type': 'text/html'
 						});
+						
 						response.writeHead(404, headers);
+						
 						html = global.cliste.core.theme.get404();
 						
 					} else { // the file doesn't exist
@@ -105,7 +136,9 @@
 						global.cliste.core.cliste.setHeader({
 							'Content-Type': 'text/html'
 						});
+						
 						response.writeHead(404, headers);
+						
 						html = global.cliste.core.theme.get404();
 						
 					}
@@ -126,7 +159,7 @@
 				});
 				
 				// write out the headers
-				response.writeHead(404, headers);
+				response.writeHead(500, headers);
 				// write the exception to the server and error out gracefully
 				html = exception.toString();
 				
