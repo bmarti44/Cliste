@@ -7,6 +7,8 @@ Cliste CMS
 
 What is it?
 -----------
+This is currently a work in progress, any developers that want to help let me know!.
+
 Cliste CMS utilizes Node.js and Handlebars.js to create a 100% JavaScript based CMS. This is currently a work in progress
 and does not yet support all functionalities you would expect in a CMS. User Management, Permissions, Database API and Forms are still
 outstanding components. Implemented components include the Server, Virtual Paths, Theming, File Management and Aliases. This
