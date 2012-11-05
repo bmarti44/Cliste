@@ -16,6 +16,7 @@
 	
 	var http = require("http"),
 		mime = require('mime'),
+		httpStatic = require('node-static'),
 		createServer,
 		server = {};
 	
@@ -45,6 +46,9 @@
 		var headers = global.cliste.core.cliste.getHeaders(),
 			paths = global.cliste.core.path.getPaths(),
 			aliases = global.cliste.core.alias.getAliases(),
+			fileServer = new (httpStatic.Server)('./', {
+				'cache': 3600
+			}),
 			url,
 			html,
 			data;
@@ -81,22 +85,20 @@
 						// if the URL is in the /sites/all/file folder
 						if (url.indexOf('/sites/all/file') === 0) {
 							
-							global.cliste.core.cliste.setHeader({
-								'Content-Type': mime.lookup(global.cliste.settings.base + request.url)
-							});
-							response.writeHead(200, headers);
-							html = global.cliste.core.file.getFile(global.cliste.settings.base + url);
+							request.addListener('end', function () {
+						        fileServer.serve(request, response);
+						    });
 							
-						} else { // the URL is not in the /sites/all/file folder
+							return true;
 							
-							// since it isn't in the /sites/all/file folder, we don't want to show it
-							global.cliste.core.cliste.setHeader({
-								'Content-Type': 'text/html'
-							});
-							response.writeHead(404, headers);
-							html = global.cliste.core.theme.get404();
+						} // the URL is not in the /sites/all/file folder
 							
-						}
+						// since it isn't in the /sites/all/file folder, we don't want to show it
+						global.cliste.core.cliste.setHeader({
+							'Content-Type': 'text/html'
+						});
+						response.writeHead(404, headers);
+						html = global.cliste.core.theme.get404();
 						
 					} else { // the file doesn't exist
 						

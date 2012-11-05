@@ -7,19 +7,19 @@ Cliste CMS
 
 What is it?
 -----------
-This is currently a work in progress, any developers that want to help let me know!.
+This is currently a work in progress, any developers that want to help let me know!
 
 Cliste CMS utilizes Node.js and Handlebars.js to create a 100% JavaScript based CMS. This is currently a work in progress
 and does not yet support all functionalities you would expect in a CMS. User Management, Permissions, Database API and Forms are still
 outstanding components. Implemented components include the Server, Virtual Paths, Theming, File Management and Aliases. This
-CMS has been inspired by Drupal and follows many of the file/folder structures developed by Drupal. That said, this is not
+CMS has been inspired by Drupal and follows many of the file/folder structures. That said, this is not
 a Drupal clone by any means, although there are many similiarities. 
 
 Setup
 ----------
 Download/clone this project to your system. Use npm to install:
 
-npm install require-dir mime handlebars mongodb mongoose
+npm install require-dir mime handlebars mongodb mongoose node-static -g
 
 Module Creation
 --------
