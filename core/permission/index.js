@@ -24,6 +24,10 @@
 		
 	};
 	
+	permission.hasAccess = function (user) {
+		
+	};
+	
 	/**
 	 * Implementation of hook.config()
 	 * This will return configuration options for this module
