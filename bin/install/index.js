@@ -6,6 +6,6 @@ var sys = require('sys'),
 	install,
 	link;
 
-link = exec("git clone https://github.com/bmarti44/Cliste.git");
+link = exec("git clone https://github.com/bmarti44/Cliste.git $PWD");
 
 process.exit(0);
