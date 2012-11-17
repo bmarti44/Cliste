@@ -6,7 +6,15 @@ var sys = require('sys'),
 	install,
 	link;
 
-link = exec("git clone https://github.com/bmarti44/Cliste.git $PWD/cliste", function (error, stdout, stderr) {
-	console.log(stdout);
+link = exec("git clone https://github.com/bmarti44/Cliste.git $PWD", function (error, stdout, stderr) {
+	
+	if (stdout) {
+		console.log(stdout);
+	}
+	
+	if (stderr) {
+		console.log(stderr);
+	}
+	
 	process.exit(0);
 });
