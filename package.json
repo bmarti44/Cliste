@@ -1,7 +1,7 @@
 {
 	"name": "cliste",
 	"description": "A NodeJS CMS",
-	"version": "0.0.2",
+	"version": "0.0.4",
 	"homepage": "http://www.brianmartin.com",
 	"repository": {
 		"type": "git",
@@ -34,15 +34,8 @@
 		"mailer": "~0.6.4",
 		"everyauth": "0.3.x"
 	},
-	"optionalDependencies": {
-		"bcrypt": "0.7.x",
-		"knox": "0.0.x",
-		"node-expat": "1.4.x",
-		"imagemagick": "0.1.x",
-		"zipfile": "0.3.x"
-	},
 	"scripts": {
-		"start": "node ./bin/cliste/index.js"
+		"postinstall": "node ./bin/install/index.js"
 	},
 	"bin": {
 		"cliste": "./bin/cliste/index.js"
