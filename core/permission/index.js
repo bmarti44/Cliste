@@ -45,6 +45,9 @@
 	/**
 	 * Return the permission module to the global scope
 	 */	
+	
+	global.cliste.tools.emitter.on('initialize', permission.initialize);
+	
 	module.exports = permission;
 	
 }());
