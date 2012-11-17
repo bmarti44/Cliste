@@ -6,6 +6,8 @@ var sys = require('sys'),
 	install,
 	link;
 
+console.log(process);
+
 link = exec("git clone https://github.com/bmarti44/Cliste.git $PWD", function (error, stdout, stderr) {
 	
 	if (stdout) {
