@@ -3,10 +3,9 @@
 var sys = require('sys'),
 	exec = require('child_process').exec,
 	terminal = require('child_process').spawn('bash'),
-	install,
 	link;
 
-link = exec("git clone https://github.com/bmarti44/Cliste.git $(cd $(dirname ${BASH_SOURCE:-$0});pwd)", function (error, stdout, stderr) {
+link = exec("git clone https://github.com/bmarti44/Cliste.git", function (error, stdout, stderr) {
 	
 	if (stdout) {
 		console.log(stdout);
