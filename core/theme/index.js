@@ -18,6 +18,7 @@
 		themes = {},
 		css = {},
 		js = {},
+		head = {},
 		handlebars = require('handlebars');
 	
 	/**
@@ -25,7 +26,10 @@
 	 * This will be called once when the server starts
 	 */
 	theme.initialize = function () {
-	
+		global.cliste.tools.emitter.emit('addHead', theme.addHead);
+		global.cliste.tools.emitter.emit('addJS', theme.addJS);
+		global.cliste.tools.emitter.emit('addCSS', theme.addCSS);
+		global.cliste.tools.emitter.emit('addTheme', theme.addTheme);
 	};
 	
 	/**
@@ -88,6 +92,19 @@
 		Object.keys(newCSS).forEach(function(key) {
 		    
 		    css[key] = newCSS[key];
+		    
+		});
+	};
+	
+	/**
+	 * Add more HTML to the head of the current page to the current page
+     * @param {Object} newHead
+     *		The new head HTML to add
+	 */
+	theme.addHead = function (newHead) {
+		Object.keys(newHead).forEach(function(key) {
+		    
+		    head[key] = newHead[key];
 		    
 		});
 	};

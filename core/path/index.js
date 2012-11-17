@@ -23,7 +23,7 @@
 	 * This will be called once when the server starts
 	 */
 	path.initialize = function () {
-		
+		global.cliste.tools.emitter.emit('addPath', path.addPath);
 	};
 	
 	/**
