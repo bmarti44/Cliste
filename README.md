@@ -42,6 +42,16 @@ Module Creation
 
 An example of the home module:
 
+		/**
+		 *	@description
+		 *		This module will control the home page
+		 *	@author
+		 *		Brian Martin
+		 *	@version
+		 *		1.0.0
+		 *	@namespace
+		 *		Home
+		 */
 		(function() {
 			'use strict';
 			
@@ -52,30 +62,6 @@ An example of the home module:
 			 * This will be called once when the server starts
 			 */
 			home.initialize = function () {
-				// add a new path for the home page
-				global.cliste.core.path.addPath({
-					'/home': {
-						'type': 'module',
-						'name': 'home',
-						'callback': 'getHTML'
-					}
-				});
-				
-				// add a new alias, and point it at the home page
-				global.cliste.core.alias.addAlias({
-					'/': '/home'
-				});
-				
-				// add a new theme for the home page
-				global.cliste.core.theme.addTheme({
-					'home': { // name it home
-						'parent': 'page', // make it's parent page.handlebars
-						'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
-						'model': { // pass the model
-							'text': 'frontpage'
-						}
-					}
-				});
 				
 			};
 			
@@ -89,6 +75,24 @@ An example of the home module:
 			};
 			
 			/**
+			 * Implementation of hook.addTheme
+			 * Add a new theme definition to the theme registry
+			 */
+			home.addTheme = function (callback) {
+				// add a new theme for the home page
+				callback({
+					'home': { // name it home
+						'parent': 'page', // make it's parent page.handlebars
+						'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
+						'model': { // pass the model
+							'text': 'frontpage'
+						}
+					}
+				});
+				
+			};
+			
+			/**
 			 * Implementation of hook.config()
 			 * This will return configuration options for this module
 			 */
@@ -99,8 +103,45 @@ An example of the home module:
 			};
 			
 			/**
+			 * Implementation of hook.addPath
+			 * Add a new path to the path registry
+			 */
+			home.addPath = function (callback) {
+				
+				callback({
+					'/home': {
+						'type': 'module',
+						'name': 'home',
+						'callback': 'getHTML'
+					}
+				});
+				
+			};
+			
+			/**
+			 * Implementation of hook.addAlias
+			 * Add a new alias to the alias registry
+			 */
+			home.addAlias = function (callback) {
+				
+				// add a new alias, and point it at the home page
+				callback({
+					'/': '/home'
+				});
+				
+			};
+			
+			/**
+			 * Set listeners for emitter hooks
+			 */
+			global.cliste.tools.emitter.on('initialize', home.initialize);
+			global.cliste.tools.emitter.on('addTheme', home.addTheme);
+			global.cliste.tools.emitter.on('addPath', home.addPath);
+			global.cliste.tools.emitter.on('addAlias', home.addAlias);
+			
+			/**
 			 * Return the user module to the global scope
-			 */	
+			 */
 			module.exports = home;
 			
 		}());
