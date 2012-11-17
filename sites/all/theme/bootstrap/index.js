@@ -34,7 +34,9 @@
 			'weight': 0
 		};
 	};
-		
+	
+	global.cliste.tools.emitter.on('initialize', bootstrap.initialize);
+	
 	module.exports = bootstrap;
 	
 }());

@@ -86,6 +86,9 @@
 	/**
 	 * Return the path module to the global scope
 	 */	
+	
+	global.cliste.tools.emitter.on('initialize', path.initialize);
+	
 	module.exports = path;
 	
 }());

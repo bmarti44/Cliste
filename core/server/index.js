@@ -175,6 +175,9 @@
 	/**
 	 * Return the form module to the global scope
 	 */
+	
+	global.cliste.tools.emitter.on('initialize', server.initialize);
+	
 	module.exports = server;
 	
 }());

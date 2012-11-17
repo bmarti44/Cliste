@@ -5,6 +5,9 @@
 	'use strict';
 	
 	var requireDir = require('require-dir'),
+		events = require('events'),
+		emitter = new events.EventEmitter(),
+		util = require('util'),
 		count = 0,
 		core,
 		modules,
@@ -12,17 +15,25 @@
 		themes,
 		processor;
 	
+	global.cliste = {
+		'settings': false,
+		'core': false,
+		'module': false,
+		'themes': false,
+		'tools': {
+			'emitter': emitter
+		}
+	};
+	
 	settings = require('./sites/default/settings.js');
 	core = requireDir('./core', {recurse: true});
 	modules = requireDir('./sites/all/module', {recurse: true});
 	themes = requireDir('./sites/all/theme', {recurse: true});
 	
-	global.cliste = {
-		'settings': settings,
-		'core': core,
-		'module': modules,
-		'themes': themes
-	};
+	global.cliste.settings = settings;
+	global.cliste.core = core;
+	global.cliste.module = modules;
+	global.cliste.themes = themes;
 
 	Object.keys(core).forEach(function(key) {
 	    
@@ -42,28 +53,6 @@
 	    
 	});
 	
-	Object.keys(core).forEach(function(key) {
-	    
-	    if (typeof(core[key].initialize) !== 'undefined') {
-			core[key].initialize();
-	    }
-	    
-	});
-	
-	Object.keys(modules).forEach(function(key) {
-	    
-	    if (typeof(modules[key].initialize) !== 'undefined') {
-			modules[key].initialize();
-	    }
-	    
-	});
-	
-	Object.keys(themes).forEach(function(key) {
-	    
-	    if (typeof(themes[key].initialize) !== 'undefined') {
-			themes[key].initialize();
-	    }
-	    
-	});
+	core.bootstrap.start();
 	
 }());

@@ -37,6 +37,9 @@
 	/**
 	 * Return the content module to the global scope
 	 */
+	
+	global.cliste.tools.emitter.on('initialize', content.initialize);
+	
 	module.exports = content;
 	
 }());

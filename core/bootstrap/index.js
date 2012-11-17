@@ -3,68 +3,53 @@
 
 /**
  *	@description
- *		The Admin module will be used to create the administrative back end for cliste
+ *		This module will provide URL aliases for paths in the cliste system
  *	@author
  *		Brian Martin
  *	@version
  *		1.0.0
  *	@namespace
- *		Admin
+ *		Alias
  */
 (function() {
 	'use strict';
 	
-	var admin = {};
+	var bootstrap = {},
+		customEvents = [
+			'initialize'
+		];
 	
 	/**
 	 * Implementation of hook.initialize()
 	 * This will be called once when the server starts
 	 */
-	admin.initialize = function () {
-		global.cliste.core.path.addPath({
-			'/admin': {
-				'type': 'core',
-				'name': 'admin',
-				'callback': 'getHTML'
-			}
-		});
+	bootstrap.initialize = function () {
 		
-		global.cliste.core.theme.addTheme({
-			'admin': {
-				'parent': 'page-admin',
-				'view': global.cliste.core.file.getSource('core', 'admin', 'template/admin.handlebars'),
-				'model': {
-					'text': 'admin page'
-				}
-			}
-		});
-	};
-	
-	/**
-	 * Admin page callback
-	 * @return {String}
-	 *		HTML for the admin page
-	 */
-	admin.getHTML = function () {
-		return global.cliste.core.theme.process('admin');
 	};
 	
 	/**
 	 * Implementation of hook.config()
 	 * This will return configuration options for this module
 	 */
-	admin.config = function () {
+	bootstrap.config = function () {
 		return {
 			'weight': 0
 		};
 	};
 	
+	bootstrap.start = function () {
+		var i;
+		console.log(global.cliste);
+		
+		for (i = 0; i < customEvents.length; i += 1) {
+			global.cliste.tools.emitter.emit(customEvents[i]);
+	    }
+	    
+	};
+	
 	/**
 	 * Return the admin module to the global scope
 	 */
-	
-	global.cliste.tools.emitter.on('initialize', admin.initialize);
-	
-	module.exports = admin;
+	module.exports = bootstrap;
 	
 }());

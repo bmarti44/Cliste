@@ -105,6 +105,9 @@
 	/**
 	 * Return the database module to the global scope
 	 */
+	
+	global.cliste.tools.emitter.on('initialize', database.initialize);
+	
 	module.exports = database;
 	
 }());

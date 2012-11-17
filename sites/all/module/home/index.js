@@ -70,6 +70,8 @@
 	/**
 	 * Return the user module to the global scope
 	 */	
+	global.cliste.tools.emitter.on('initialize', home.initialize);
+	
 	module.exports = home;
 	
 }());

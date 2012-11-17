@@ -37,6 +37,9 @@
 	/**
 	 * Return the form module to the global scope
 	 */
+	
+	global.cliste.tools.emitter.on('initialize', form.initialize);
+	
 	module.exports = form;
 	
 }());

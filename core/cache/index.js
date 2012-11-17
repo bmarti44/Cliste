@@ -37,6 +37,9 @@
 	/**
 	 * Return the admin module to the global scope
 	 */
+	
+	global.cliste.tools.emitter.on('initialize', cache.initialize);
+	
 	module.exports = cache;
 	
 }());

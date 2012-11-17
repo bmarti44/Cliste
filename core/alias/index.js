@@ -61,6 +61,9 @@
 	/**
 	 * Return the admin module to the global scope
 	 */
+	
+	global.cliste.tools.emitter.on('initialize', alias.initialize);
+	
 	module.exports = alias;
 	
 }());

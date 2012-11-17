@@ -187,6 +187,9 @@
 	/**
 	 * Return the theme module to the global scope
 	 */	
+	
+	global.cliste.tools.emitter.on('initialize', theme.initialize);
+	
 	module.exports = theme;
 	
 }());
