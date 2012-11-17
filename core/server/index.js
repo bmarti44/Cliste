@@ -56,6 +56,8 @@
 			
 			try {
 				
+				global.cliste.tools.emitter.emit('onConnect', request.url);
+				
 				// if there is a valid path or valid alias
 				if (typeof(paths[request.url]) !== 'undefined' || typeof(aliases[request.url]) !== 'undefined') {
 					// force the header to be text/html
@@ -72,6 +74,8 @@
 					}
 					// get the HTML for the page based on the path
 					html = global.cliste[paths[url].type][paths[url].name][paths[url].callback]();
+					
+					global.cliste.tools.emitter.emit('onConnectSuccess', request.url);
 					
 				} else { // there is no path or alias for this URL
 					
@@ -94,6 +98,7 @@
 										});
 										response.writeHead(404, headers);
 										html = global.cliste.core.theme.get404();
+										global.cliste.tools.emitter.emit('onConnectNotFound', request.url);
 										return true;
 									}
 									
@@ -108,6 +113,8 @@
 										response.writeHead(500, headers);
 										// write the exception to the server and error out gracefully
 										html = error.toString();
+										
+										global.cliste.tools.emitter.emit('onConnectError', request.url);
 										
 										response.write(html);
 										response.end();
@@ -130,6 +137,8 @@
 						
 						html = global.cliste.core.theme.get404();
 						
+						global.cliste.tools.emitter.emit('onConnectNotFound', request.url);
+						
 					} else { // the file doesn't exist
 						
 						// show the 404 page
@@ -140,6 +149,8 @@
 						response.writeHead(404, headers);
 						
 						html = global.cliste.core.theme.get404();
+						
+						global.cliste.tools.emitter.emit('onConnectNotFound', request.url);
 						
 					}
 					
