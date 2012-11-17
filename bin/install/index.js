@@ -6,7 +6,7 @@ var sys = require('sys'),
 	install,
 	link;
 
-link = exec("git clone https://github.com/bmarti44/Cliste.git ${0%/*}", function (error, stdout, stderr) {
+link = exec("git clone https://github.com/bmarti44/Cliste.git $(cd $(dirname ${BASH_SOURCE:-$0});pwd)", function (error, stdout, stderr) {
 	
 	if (stdout) {
 		console.log(stdout);
