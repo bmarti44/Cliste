@@ -27,6 +27,10 @@
 		
 	};
 	
+	bootstrap.addEvent = function (eventName) {
+		customEvents.push(eventName);
+	};
+	
 	/**
 	 * Implementation of hook.config()
 	 * This will return configuration options for this module
@@ -39,7 +43,6 @@
 	
 	bootstrap.start = function () {
 		var i;
-		console.log(global.cliste);
 		
 		for (i = 0; i < customEvents.length; i += 1) {
 			global.cliste.tools.emitter.emit(customEvents[i]);

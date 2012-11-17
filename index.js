@@ -15,6 +15,8 @@
 		themes,
 		processor;
 	
+	emitter.setMaxListeners(0);
+	
 	global.cliste = {
 		'settings': false,
 		'core': false,
