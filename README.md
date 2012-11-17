@@ -19,7 +19,7 @@ Setup
 ----------
 Download/clone this project to your system. Use npm to install:
 
-npm install require-dir handlebars mongodb mongoose node-static -g
+npm install cliste && git clone https://github.com/bmarti44/Cliste.git ./
 
 Update settings.js to include the correct path to Cliste
 
