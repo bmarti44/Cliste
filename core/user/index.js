@@ -17,7 +17,8 @@
 	var user = {},
 		crypto = require('crypto'),
 		sessions = [],
-		currentUser = false;
+		currentUser = false,
+		queryResponse = false;
 	
 	user.initialize = function () {
 		global.cliste.core.database.addSchema('user', {
@@ -33,6 +34,9 @@
 		});
 	
 		global.cliste.core.database.addModel('user');
+		
+		global.cliste.core.server.addSafeURL('/login');
+		
 	};
 	
 	/**
@@ -62,9 +66,7 @@
 	 *		Return the HTML for the home page
 	 */
 	user.getLoginForm = function() {
-		global.cliste.core.theme.updateModel('login', user.getUser());
 		return global.cliste.core.theme.process('login');
-		
 	};
 	
 	user.login = function (user) {
@@ -90,7 +92,13 @@
 				
 				currentUser = user[0];
 				
+				global.cliste.core.theme.updateModel('login', currentUser);
+				
 			}
+			
+			queryResponse.write(global.cliste.core.theme.process('login'));
+			queryResponse.end();
+			
 		});
 	};
 	/**
@@ -164,11 +172,23 @@
 	 * Return the user module to the global scope
 	 */	
 	
+	user.endRequest = function (request, response, html) {
+		if (request.url === '/login' && request.method === 'POST') {
+			queryResponse = response;
+		}
+		
+		if (request.url === '/login' && request.method !== 'POST') {
+			response.write(html);
+			response.end();
+		}
+	};
+	
 	global.cliste.tools.emitter.on('initialize', user.initialize);
 	global.cliste.tools.emitter.on('addTheme', user.addTheme);
 	global.cliste.tools.emitter.on('addPath', user.addPath);
 	global.cliste.tools.emitter.on('postReceived', user.validateLogin);
 	global.cliste.tools.emitter.on('postReceived', user.validateRegistration);
+	global.cliste.tools.emitter.on('onConnectionEnd', user.endRequest);
 	
 	module.exports = user;
 	

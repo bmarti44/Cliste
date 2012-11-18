@@ -18,6 +18,7 @@
 		httpStatic = require('node-static'),
 		querystring = require('querystring'),
 		createServer,
+		safeURLs = [],
 		server = {};
 	
 	/**
@@ -36,6 +37,10 @@
 		return {
 			'weight': 10
 		};
+	};
+	
+	server.addSafeURL = function (url) {
+		safeURLs.push(url);
 	};
 	
 	/**
@@ -165,9 +170,6 @@
 					
 				}
 				
-				// write the generated HTML
-				response.write(html);
-				
 				request.on('end', function () {
 					
 					if (typeof(request.content) !== 'undefined') {
@@ -176,7 +178,7 @@
 					
 				});
 				
-				response.end();
+				global.cliste.tools.emitter.emit('onConnectionEnd', request, response, html);
 				
 			} catch (exception) { // oops something went wrong!
 				
@@ -205,6 +207,28 @@
 	 * Return the form module to the global scope
 	 */
 	
+	server.contains = function contains(a, obj) {
+		var i = obj.length;
+		
+		for (i = 0; i < obj.length; i += 1) {
+			if (obj[i] === a) {
+				return true;
+			}
+		}
+		
+		return false;
+	};
+	
+	server.endRequest = function (request, response, html) {
+		
+		if (!server.contains(request.url, safeURLs)) {
+			response.write(html);
+			response.end();
+		}
+		
+	};
+	
+	global.cliste.tools.emitter.on('onConnectionEnd', server.endRequest);
 	global.cliste.tools.emitter.on('initialize', server.initialize);
 	
 	module.exports = server;
