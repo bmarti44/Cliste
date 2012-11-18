@@ -56,20 +56,28 @@
 	};
 	
 	database.query = function (name, data, fields, callback) {
-		models[name]
-			.find(data)
-			.select(fields)
-			.exec(callback);
+		
+		if (typeof(models[name]) !== 'undefined') {
+			models[name]
+				.find(data)
+				.select(fields)
+				.exec(callback);
+		}
+		
 	};
 	
 	database.update = function (name, fields, data, callback) {
-		models[name]
-			.update(fields, { $set: data}, callback);	
+		if (typeof(models[name]) !== 'undefined') {
+			models[name]
+				.update(fields, { $set: data}, callback);
+		}
 	};
 	
 	database.remove = function (name, fields) {
-		models[name]
-			.find(fields).remove();
+		if (typeof(models[name]) !== 'undefined') {
+			models[name]
+				.find(fields).remove();
+		}
 	};
 	/**
 	 * Add a new model to be used by mongodb
@@ -93,15 +101,17 @@
 	 */
 	database.addDocument = function (name, data) {
 		
-		if (typeof(documents[name]) === 'undefined') {
+		if (typeof(documents[name]) === 'undefined' && typeof(models[name]) !== 'undefined') {
 			documents[name] = new models[name](data);
 		}
 		
-		documents[name].save(function (error) {
-			if (error) {
-				console.log(error);
-			}
-		});
+		if (typeof(documents[name]) !== 'undefined') {
+			documents[name].save(function (error) {
+				if (error) {
+					console.log(error);
+				}
+			});
+		}
 	};
 	
 	/**

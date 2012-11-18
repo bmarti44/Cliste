@@ -22,12 +22,6 @@
 	
 	user.initialize = function () {
 		
-		user.setUser();
-		
-	};
-	
-	user.setUser = function () {
-		
 	};
 	
 	/**
@@ -50,7 +44,6 @@
 		global.cliste.core.database.addDocument('user', data);
 		
 	};
-	
 	
 	/**
 	 * Theme callback
@@ -136,13 +129,41 @@
 		
 	};
 	
-	user.getUser = function (request) {
-		var SID = global.cliste.core.cliste.getCookie('SESSION', request);
+	user.getUser = function (SID) {
 		
 		if (SID !== false) {
 			
+			global.cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
+				
+				if (user.length) {
+					currentUser = user;
+					global.cliste.core.theme.updateModel('login', currentUser);
+				}
+				
+			});
 		}
+		
 		return currentUser;
+	};
+	
+	user.setUser = function (SID) {
+		var i;
+		
+		for (i = 0; i < sessions.length; i += 1) {
+			
+			if (SID === sessions.SID) {
+				global.cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
+					
+					if (user.length) {
+						currentUser = user;
+						global.cliste.core.theme.updateModel('login', currentUser);
+					}
+					
+				});
+			}
+			
+		}
+		
 	};
 	
 	user.addTheme = function (callback) {
@@ -197,6 +218,7 @@
 				'anonymous': Boolean
 			}
 		});
+		
 	};
 	
 	user.setModel = function () {

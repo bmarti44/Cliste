@@ -65,7 +65,8 @@
 	
 	cliste.getCookie = function (name, request) {
 		var cookies = {},
-			parts;
+			parts,
+			result = false;
 		
 		if (request.headers.cookie)	 {
 			request.headers.cookie.split(';').forEach(function( cookie ) {
@@ -74,11 +75,16 @@
 				if (parts.length) {
 					
 					if (parts[0] === name) {
-						return parts[1];
+						result = parts[1];
+						return false;
 					}
 				}
 				
 			});
+		}
+		
+		if (result !== false) {
+			return result;
 		}
 		
 		return false;

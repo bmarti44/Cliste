@@ -64,12 +64,6 @@
 				request.postData += chunk;
 			});
 			
-			SID = global.cliste.core.cliste.getCookie('SESSION', request);
-			
-			if (SID !== false) {
-				
-			}
-			
 			try {
 				
 				global.cliste.tools.emitter.emit('onConnect', request.url);
@@ -92,6 +86,7 @@
 					} else {
 						url = request.url;
 					}
+					
 					// get the HTML for the page based on the path
 					html = global.cliste[paths[url].type][paths[url].name][paths[url].callback](request, response);
 					
