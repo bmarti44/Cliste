@@ -17,8 +17,8 @@
 	var user = {},
 		crypto = require('crypto'),
 		sessions = [],
-		currentUser = false,
-		queryResponse = false;
+		querystring = require('querystring'),
+		currentUser = false;
 	
 	user.initialize = function () {
 		global.cliste.core.database.addSchema('user', {
@@ -34,8 +34,6 @@
 		});
 	
 		global.cliste.core.database.addModel('user');
-		
-		global.cliste.core.server.addSafeURL('/login');
 		
 	};
 	
@@ -65,14 +63,25 @@
 	 * @return {String}
 	 *		Return the HTML for the home page
 	 */
-	user.getLoginForm = function() {
-		return global.cliste.core.theme.process('login');
+	user.getLoginForm = function(request, response) {
+		
+		request.on('end', function () {
+					
+			if (typeof(request.content) !== 'undefined') {
+				user.login(request, response, querystring.parse(request.content));
+			} else {
+				response.write(global.cliste.core.theme.process('login'));
+				response.end();
+			}
+			
+		});
+		
 	};
 	
-	user.login = function (user) {
+	user.login = function (request, response, data) {
 		var credentials = {
-			'username': user.username,
-			'password': user.password
+			'username': data.username,
+			'password': data.password
 		};
 		
 		global.cliste.core.database.query('user', credentials, {}, function (error, user) {
@@ -95,9 +104,9 @@
 				global.cliste.core.theme.updateModel('login', currentUser);
 				
 			}
-			
-			queryResponse.write(global.cliste.core.theme.process('login'));
-			queryResponse.end();
+			console.log(global.cliste.core.theme.process('login'));
+			response.write(global.cliste.core.theme.process('login'));
+			response.end();
 			
 		});
 	};
@@ -106,9 +115,10 @@
 	 * @return {String}
 	 *		Return the HTML for the home page
 	 */
-	user.getRegisterForm = function() {
+	user.getRegisterForm = function(request, response) {
 		
-		return global.cliste.core.theme.process('register');
+		response.write(global.cliste.core.theme.process('register'));
+		response.end();
 		
 	};
 	
@@ -150,12 +160,6 @@
 		
 	};
 	
-	user.validateLogin = function (url, data) {
-		if (url === '/login') {
-			user.login(data);
-		}
-	};
-	
 	user.validateRegistration = function (url, data) {
 		if (url === '/register') {
 			delete data.submit;
@@ -168,27 +172,10 @@
 			assert.ok(false, 'testing this out');
 		}
 	};
-	/**
-	 * Return the user module to the global scope
-	 */	
-	
-	user.endRequest = function (request, response, html) {
-		if (request.url === '/login' && request.method === 'POST') {
-			queryResponse = response;
-		}
-		
-		if (request.url === '/login' && request.method !== 'POST') {
-			response.write(html);
-			response.end();
-		}
-	};
 	
 	global.cliste.tools.emitter.on('initialize', user.initialize);
 	global.cliste.tools.emitter.on('addTheme', user.addTheme);
 	global.cliste.tools.emitter.on('addPath', user.addPath);
-	global.cliste.tools.emitter.on('postReceived', user.validateLogin);
-	global.cliste.tools.emitter.on('postReceived', user.validateRegistration);
-	global.cliste.tools.emitter.on('onConnectionEnd', user.endRequest);
 	
 	module.exports = user;
 	

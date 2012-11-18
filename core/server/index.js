@@ -18,7 +18,6 @@
 		httpStatic = require('node-static'),
 		querystring = require('querystring'),
 		createServer,
-		safeURLs = [],
 		server = {};
 	
 	/**
@@ -37,10 +36,6 @@
 		return {
 			'weight': 10
 		};
-	};
-	
-	server.addSafeURL = function (url) {
-		safeURLs.push(url);
 	};
 	
 	/**
@@ -87,7 +82,7 @@
 						url = request.url;
 					}
 					// get the HTML for the page based on the path
-					html = global.cliste[paths[url].type][paths[url].name][paths[url].callback]();
+					html = global.cliste[paths[url].type][paths[url].name][paths[url].callback](request, response);
 					
 					global.cliste.tools.emitter.emit('onConnectSuccess', request.url);
 					
@@ -162,21 +157,14 @@
 						
 						response.writeHead(404, headers);
 						
-						html = global.cliste.core.theme.get404();
+						response.write(global.cliste.core.theme.get404());
+						response.end();
 						
 						global.cliste.tools.emitter.emit('onConnectNotFound', request.url);
 						
 					}
 					
 				}
-				
-				request.on('end', function () {
-					
-					if (typeof(request.content) !== 'undefined') {
-						global.cliste.tools.emitter.emit('postReceived', request.url, querystring.parse(request.content));
-					}
-					
-				});
 				
 				global.cliste.tools.emitter.emit('onConnectionEnd', request, response, html);
 				
@@ -219,16 +207,6 @@
 		return false;
 	};
 	
-	server.endRequest = function (request, response, html) {
-		
-		if (!server.contains(request.url, safeURLs)) {
-			response.write(html);
-			response.end();
-		}
-		
-	};
-	
-	global.cliste.tools.emitter.on('onConnectionEnd', server.endRequest);
 	global.cliste.tools.emitter.on('initialize', server.initialize);
 	
 	module.exports = server;

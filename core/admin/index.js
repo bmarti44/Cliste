@@ -45,8 +45,11 @@
 	 * @return {String}
 	 *		HTML for the admin page
 	 */
-	admin.getHTML = function () {
-		return global.cliste.core.theme.process('admin');
+	admin.getHTML = function (request, response) {
+		
+		response.write(global.cliste.core.theme.process('admin'));
+		response.end();
+		
 	};
 	
 	/**
