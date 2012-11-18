@@ -32,6 +32,10 @@
 		global.cliste.tools.emitter.emit('addTheme', theme.addTheme);
 	};
 	
+	theme.updateModel = function (key, model) {
+		themes[key].model = model;
+	};
+	
 	/**
 	 * Process a theme and it's corresponding handlebars
      * @param {String} name

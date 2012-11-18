@@ -54,6 +54,13 @@
 		
 	};
 	
+	database.query = function (name, data, fields, callback) {
+		models[name]
+			.find(data)
+			.select(fields)
+			.exec(callback);
+	};
+	
 	/**
 	 * Add a new model to be used by mongodb
      * @param {Object} name

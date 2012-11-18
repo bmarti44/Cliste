@@ -14,14 +14,22 @@
 (function() {
 	'use strict';
 	
-	var user = {};
+	var user = {},
+		crypto = require('crypto'),
+		sessions = [],
+		currentUser = false;
 	
 	user.initialize = function () {
 		global.cliste.core.database.addSchema('user', {
-			'firstName': 'string',
-			'lastName': 'string',
-			'username': 'string',
-			'password': 'string'
+			'firstname': String,
+			'lastname': String,
+			'username': String,
+			'password': String,
+			'roles': {
+				'administrator': Boolean,
+				'authenticated': Boolean,
+				'anonymous': Boolean
+			}
 		});
 	
 		global.cliste.core.database.addModel('user');
@@ -53,8 +61,51 @@
 	 * @return {String}
 	 *		Return the HTML for the home page
 	 */
-	user.getHTML = function() {
+	user.getLoginForm = function() {
+		global.cliste.core.theme.updateModel('login', user.getUser());
 		return global.cliste.core.theme.process('login');
+		
+	};
+	
+	user.login = function (user) {
+		var credentials = {
+			'username': user.username,
+			'password': user.password
+		};
+		
+		global.cliste.core.database.query('user', credentials, {}, function (error, user) {
+			var random = Math.floor(Math.random() * 1000000000000000001),
+				cipher = crypto.createHash('sha1'),
+				session;
+				
+			if (user.length) {
+				
+				session = cipher.update(user[0]._id.toString()).digest() + random;
+				
+				sessions.push({
+					'SID': session,
+					'username': user[0].username,
+					'expires': Date.now() + 1209600000
+				});
+				
+				currentUser = user[0];
+				
+			}
+		});
+	};
+	/**
+	 * Theme callback
+	 * @return {String}
+	 *		Return the HTML for the home page
+	 */
+	user.getRegisterForm = function() {
+		
+		return global.cliste.core.theme.process('register');
+		
+	};
+	
+	user.getUser = function () {
+		return currentUser;
 	};
 	
 	user.addTheme = function (callback) {
@@ -63,6 +114,11 @@
 			'login': { // name it home
 				'parent': 'page', // make it's parent page.handlebars
 				'view': global.cliste.core.file.getSource('core', 'user', 'template/login.handlebars'), // set the view as the source of home.handlebars
+				'model': {}
+			},
+			'register': { // name it home
+				'parent': 'page', // make it's parent page.handlebars
+				'view': global.cliste.core.file.getSource('core', 'user', 'template/register.handlebars'), // set the view as the source of home.handlebars
 				'model': {}
 			}
 		});
@@ -75,7 +131,12 @@
 			'/login': {
 				'type': 'core',
 				'name': 'user',
-				'callback': 'getHTML'
+				'callback': 'getLoginForm'
+			},
+			'/register': {
+				'type': 'core',
+				'name': 'user',
+				'callback': 'getRegisterForm'
 			}
 		});
 		
@@ -83,7 +144,14 @@
 	
 	user.validateLogin = function (url, data) {
 		if (url === '/login') {
-			console.log(data);
+			user.login(data);
+		}
+	};
+	
+	user.validateRegistration = function (url, data) {
+		if (url === '/register') {
+			delete data.submit;
+			user.addUser(data);
 		}
 	};
 	
@@ -100,6 +168,7 @@
 	global.cliste.tools.emitter.on('addTheme', user.addTheme);
 	global.cliste.tools.emitter.on('addPath', user.addPath);
 	global.cliste.tools.emitter.on('postReceived', user.validateLogin);
+	global.cliste.tools.emitter.on('postReceived', user.validateRegistration);
 	
 	module.exports = user;
 	
