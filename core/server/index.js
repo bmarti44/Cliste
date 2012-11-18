@@ -56,11 +56,11 @@
 		http.createServer(function(request, response) {
 			
 			request.on('data', function (chunk) {
-				if (typeof(request.content) === 'undefined') {
-					request.content = '';
+				if (typeof(request.postData) === 'undefined') {
+					request.postData = '';
 				}
 				
-				request.content += chunk;
+				request.postData += chunk;
 			});
 			
 			try {

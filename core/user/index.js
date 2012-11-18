@@ -67,8 +67,8 @@
 		
 		request.on('end', function () {
 					
-			if (typeof(request.content) !== 'undefined') {
-				user.login(request, response, querystring.parse(request.content));
+			if (typeof(request.postData) !== 'undefined') {
+				user.login(request, response, querystring.parse(request.postData));
 			} else {
 				response.write(global.cliste.core.theme.process('login'));
 				response.end();
@@ -104,7 +104,7 @@
 				global.cliste.core.theme.updateModel('login', currentUser);
 				
 			}
-			console.log(global.cliste.core.theme.process('login'));
+			
 			response.write(global.cliste.core.theme.process('login'));
 			response.end();
 			
