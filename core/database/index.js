@@ -26,7 +26,8 @@
 	 * This will be called once when the server starts
 	 */
 	database.initialize = function () {
-		
+		global.cliste.tools.emitter.emit('addSchema');
+		global.cliste.tools.emitter.emit('addModel');
 	};
 	
 	/**

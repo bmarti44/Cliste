@@ -22,20 +22,11 @@
 	
 	user.initialize = function () {
 		
-		global.cliste.core.database.addSchema('user', {
-			'firstname': String,
-			'lastname': String,
-			'username': String,
-			'password': String,
-			'session': String,
-			'roles': {
-				'administrator': Boolean,
-				'authenticated': Boolean,
-				'anonymous': Boolean
-			}
-		});
+		user.setUser();
+		
+	};
 	
-		global.cliste.core.database.addModel('user');
+	user.setUser = function () {
 		
 	};
 	
@@ -193,6 +184,25 @@
 		user.addUser(data);
 	};
 	
+	user.setSchema = function () {
+		global.cliste.core.database.addSchema('user', {
+			'firstname': String,
+			'lastname': String,
+			'username': String,
+			'password': String,
+			'session': String,
+			'roles': {
+				'administrator': Boolean,
+				'authenticated': Boolean,
+				'anonymous': Boolean
+			}
+		});
+	};
+	
+	user.setModel = function () {
+		global.cliste.core.database.addModel('user');
+	};
+	
 	user.tests = {
 		'test1': function (assert) {
 			assert.ok(false, 'testing this out');
@@ -202,6 +212,8 @@
 	global.cliste.tools.emitter.on('initialize', user.initialize);
 	global.cliste.tools.emitter.on('addTheme', user.addTheme);
 	global.cliste.tools.emitter.on('addPath', user.addPath);
+	global.cliste.tools.emitter.on('addSchema', user.setSchema);
+	global.cliste.tools.emitter.on('addModel', user.setModel);
 	
 	module.exports = user;
 	

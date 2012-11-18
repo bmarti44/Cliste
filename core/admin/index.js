@@ -31,7 +31,7 @@
 		
 		global.cliste.core.theme.addTheme({
 			'admin': {
-				'parent': 'page-admin',
+				'parent': 'page',
 				'view': global.cliste.core.file.getSource('core', 'admin', 'template/admin.handlebars'),
 				'model': {
 					'text': 'admin page'

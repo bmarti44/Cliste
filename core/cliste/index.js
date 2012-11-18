@@ -66,7 +66,7 @@
 	cliste.getCookie = function (name, request) {
 		var cookies = {},
 			parts;
-		console.log(request.headers.cookie);
+		
 		if (request.headers.cookie)	 {
 			request.headers.cookie.split(';').forEach(function( cookie ) {
 				parts = cookie.split('=');

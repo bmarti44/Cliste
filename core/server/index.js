@@ -54,6 +54,7 @@
 			data;
 		
 		http.createServer(function(request, response) {
+			var SID;
 			
 			request.on('data', function (chunk) {
 				if (typeof(request.postData) === 'undefined') {
@@ -62,6 +63,12 @@
 				
 				request.postData += chunk;
 			});
+			
+			SID = global.cliste.core.cliste.getCookie('SESSION', request);
+			
+			if (SID !== false) {
+				
+			}
 			
 			try {
 				
