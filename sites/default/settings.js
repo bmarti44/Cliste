@@ -1,6 +1,6 @@
 module.exports = {
 	'base': process.cwd(),
 	'theme': 'bootstrap',
-	'domain': 'clistecms.com',
+	'domain': 'localhost',
 	'port': 8888
 };

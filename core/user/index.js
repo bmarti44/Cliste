@@ -99,6 +99,8 @@
 					'expires': Date.now() + 1209600000
 				});
 				
+				global.cliste.core.cliste.setCookie('SESSION=' + session);
+				
 				currentUser = user[0];
 				
 				global.cliste.core.theme.updateModel('login', currentUser);
