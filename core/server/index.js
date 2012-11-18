@@ -16,6 +16,7 @@
 	
 	var http = require("http"),
 		httpStatic = require('node-static'),
+		querystring = require('querystring'),
 		createServer,
 		server = {};
 	
@@ -53,6 +54,14 @@
 			data;
 		
 		http.createServer(function(request, response) {
+			
+			request.on('data', function (chunk) {
+				if (typeof(request.content) === 'undefined') {
+					request.content = '';
+				}
+				
+				request.content += chunk;
+			});
 			
 			try {
 				
@@ -158,6 +167,15 @@
 				
 				// write the generated HTML
 				response.write(html);
+				
+				request.on('end', function () {
+					
+					if (typeof(request.content) !== 'undefined') {
+						global.cliste.tools.emitter.emit('postReceived', request.url, querystring.parse(request.content));
+					}
+					
+				});
+				
 				response.end();
 				
 			} catch (exception) { // oops something went wrong!
