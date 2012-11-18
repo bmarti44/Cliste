@@ -61,6 +61,15 @@
 			.exec(callback);
 	};
 	
+	database.update = function (name, fields, data, callback) {
+		models[name]
+			.update(fields, { $set: data}, callback);	
+	};
+	
+	database.remove = function (name, fields) {
+		models[name]
+			.find(fields).remove();
+	};
 	/**
 	 * Add a new model to be used by mongodb
      * @param {Object} name

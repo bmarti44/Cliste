@@ -62,6 +62,29 @@
 			'Set-Cookie': cookie
 		});
 	};
+	
+	cliste.getCookie = function (name, request) {
+		var cookies = {},
+			parts;
+		console.log(request.headers.cookie);
+		if (request.headers.cookie)	 {
+			request.headers.cookie.split(';').forEach(function( cookie ) {
+				parts = cookie.split('=');
+				
+				if (parts.length) {
+					
+					if (parts[0] === name) {
+						return parts[1];
+					}
+				}
+				
+			});
+		}
+		
+		return false;
+		
+	};
+	
 	/**
 	 * Return the admin module to the global scope
 	 */

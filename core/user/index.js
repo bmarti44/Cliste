@@ -21,11 +21,13 @@
 		currentUser = false;
 	
 	user.initialize = function () {
+		
 		global.cliste.core.database.addSchema('user', {
 			'firstname': String,
 			'lastname': String,
 			'username': String,
 			'password': String,
+			'session': String,
 			'roles': {
 				'administrator': Boolean,
 				'authenticated': Boolean,
@@ -58,6 +60,7 @@
 		
 	};
 	
+	
 	/**
 	 * Theme callback
 	 * @return {String}
@@ -66,7 +69,7 @@
 	user.getLoginForm = function(request, response) {
 		
 		request.on('end', function () {
-					
+			
 			if (typeof(request.postData) !== 'undefined') {
 				user.login(request, response, querystring.parse(request.postData));
 			} else {
@@ -86,7 +89,7 @@
 		
 		global.cliste.core.database.query('user', credentials, {}, function (error, user) {
 			var random = Math.floor(Math.random() * 1000000000000000001),
-				cipher = crypto.createHash('sha1'),
+				cipher = crypto.createHash('md5'),
 				session;
 				
 			if (user.length) {
@@ -102,6 +105,16 @@
 				global.cliste.core.cliste.setCookie('SESSION=' + session);
 				
 				currentUser = user[0];
+				
+				global.cliste.core.database.update('user', {
+					'username': user[0].username,
+					'password': user[0].password
+				},
+				{
+					'session': session	
+				}, function (error, item) {
+					
+				});
 				
 				global.cliste.core.theme.updateModel('login', currentUser);
 				
@@ -119,12 +132,25 @@
 	 */
 	user.getRegisterForm = function(request, response) {
 		
-		response.write(global.cliste.core.theme.process('register'));
-		response.end();
+		request.on('end', function () {
+			
+			if (typeof(request.postData) !== 'undefined') {
+				user.validateRegistration(querystring.parse(request.postData));
+			}
+			
+			response.write(global.cliste.core.theme.process('register'));
+			response.end();
+			
+		});
 		
 	};
 	
-	user.getUser = function () {
+	user.getUser = function (request) {
+		var SID = global.cliste.core.cliste.getCookie('SESSION', request);
+		
+		if (SID !== false) {
+			
+		}
 		return currentUser;
 	};
 	
@@ -162,11 +188,9 @@
 		
 	};
 	
-	user.validateRegistration = function (url, data) {
-		if (url === '/register') {
-			delete data.submit;
-			user.addUser(data);
-		}
+	user.validateRegistration = function (data) {
+		delete data.submit;
+		user.addUser(data);
 	};
 	
 	user.tests = {

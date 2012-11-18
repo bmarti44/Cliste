@@ -73,8 +73,12 @@
 					global.cliste.core.cliste.setHeader({
 						'Content-Type': 'text/html'
 					});
+					
+					global.cliste.tools.emitter.emit('addHeaders', request.url);
+					
 					// give a found response
 					response.writeHead(200, headers);
+					
 					// set the URL from the alias, or use the current URL
 					if (typeof(aliases[request.url]) !== 'undefined') {
 						url = aliases[request.url];
