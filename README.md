@@ -70,8 +70,11 @@ An example of the home module:
 			 * @return {String}
 			 *		Return the HTML for the home page
 			 */
-			home.getHTML = function() {
-				return global.cliste.core.theme.process('home');
+			home.getHTML = function(request, response) {
+			
+				response.write(global.cliste.core.theme.process('home'));
+				response.end();
+
 			};
 			
 			/**
