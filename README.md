@@ -21,17 +21,11 @@ Download/clone this project to your system. Use npm to install:
 
 npm install cliste && git clone https://github.com/bmarti44/Cliste.git ./
 
-Update settings.js to include the correct path to Cliste
+This will install cliste and check it out into the current working directory. Just run "node index.js" and you're good to go!
 
-Then go into the project, and run "node index.js"
+If you get an error, make sure MongoDB is running. Type mongo and see if it logs you in.
 
-If you get a module not found error, don't forget to link it, like so:
-
-npm link require-dir
-
-Where require-dir is the name of the module
-
-Also, don't forget to make sure mongodb is running
+If you get a connect error then mongo isn't running. Type "mongod --fork" to start an instance of mongo.
 
 Module Creation
 --------
