@@ -31,9 +31,7 @@
 	 */
 	home.getHTML = function(request, response) {
 		
-		request.on('end', function() {
-			response.write(global.cliste.core.theme.process('home'));
-		});
+		response.write(global.cliste.core.theme.process('home'));
 		
 	};
 	

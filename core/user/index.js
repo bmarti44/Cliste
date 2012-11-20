@@ -51,16 +51,12 @@
 	 *		Return the HTML for the home page
 	 */
 	user.getLoginForm = function(request, response) {
-		
-		request.on('end', function () {
-			
-			if (typeof(request.postData) !== 'undefined') {
-				user.login(request, response, querystring.parse(request.postData));
-			} else {
-				response.write(global.cliste.core.theme.process('login'));
-			}
-			
-		});
+
+		if (typeof(request.postData) !== 'undefined') {
+			user.login(request, response, querystring.parse(request.postData));
+		} else {
+			response.write(global.cliste.core.theme.process('login'));
+		}
 		
 	};
 	
@@ -113,16 +109,12 @@
 	 *		Return the HTML for the home page
 	 */
 	user.getRegisterForm = function(request, response) {
+			
+		if (typeof(request.postData) !== 'undefined') {
+			user.validateRegistration(querystring.parse(request.postData));
+		}
 		
-		request.on('end', function () {
-			
-			if (typeof(request.postData) !== 'undefined') {
-				user.validateRegistration(querystring.parse(request.postData));
-			}
-			
-			response.write(global.cliste.core.theme.process('register'));
-			
-		});
+		response.write(global.cliste.core.theme.process('register'));
 		
 	};
 	

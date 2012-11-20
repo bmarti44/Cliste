@@ -67,7 +67,6 @@ An example of the home module:
 			home.getHTML = function(request, response) {
 			
 				response.write(global.cliste.core.theme.process('home'));
-				response.end();
 
 			};
 			
