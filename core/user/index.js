@@ -58,7 +58,6 @@
 				user.login(request, response, querystring.parse(request.postData));
 			} else {
 				response.write(global.cliste.core.theme.process('login'));
-				response.end();
 			}
 			
 		});
@@ -105,7 +104,6 @@
 			}
 			
 			response.write(global.cliste.core.theme.process('login'));
-			response.end();
 			
 		});
 	};
@@ -123,7 +121,6 @@
 			}
 			
 			response.write(global.cliste.core.theme.process('register'));
-			response.end();
 			
 		});
 		
