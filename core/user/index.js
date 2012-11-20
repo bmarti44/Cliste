@@ -53,6 +53,7 @@
 	user.getLoginForm = function(request, response) {
 
 		if (typeof(request.postData) !== 'undefined') {
+			response.stop = false;
 			user.login(request, response, querystring.parse(request.postData));
 		} else {
 			response.write(global.cliste.core.theme.process('login'));
@@ -100,7 +101,7 @@
 			}
 			
 			response.write(global.cliste.core.theme.process('login'));
-			
+			response.end();
 		});
 	};
 	/**
@@ -111,6 +112,7 @@
 	user.getRegisterForm = function(request, response) {
 			
 		if (typeof(request.postData) !== 'undefined') {
+			response.stop = false;
 			user.validateRegistration(querystring.parse(request.postData));
 		}
 		

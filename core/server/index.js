@@ -77,6 +77,8 @@
 					
 					global.cliste.tools.emitter.emit('addHeaders', request.url);
 					
+					response.stop = true;
+					
 					// give a found response
 					response.writeHead(200, headers);
 					
@@ -96,7 +98,9 @@
 					});
 					
 					request.on('end', function () {
-						response.end();
+						if (response.stop === true) {
+							response.end();
+						}
 					});
 					
 					global.cliste.tools.emitter.emit('onConnectSuccess', request.url);
