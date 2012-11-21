@@ -1,7 +1,13 @@
-Username: {{#if username}}{{username}}{{else}}N/A{{/if}} <br />
+<h3>Login</h3>
+
+<p>
+	Username: {{#if username}}{{username}}{{else}}N/A{{/if}}
+</p>
 
 <form name="login" id="login" action="/login" method="post">
-	<input type="text" name="username" />
-	<input type="password" name="password" />
+	<label for="username">Username</label>
+	<input type="text" name="username" /> <br />
+	<label for="password">Password</label>
+	<input type="password" name="password" /> <br />
 	<input type="submit" name="submit" value="Submit" />
 </form>

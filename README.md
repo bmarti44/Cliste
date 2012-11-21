@@ -2,7 +2,7 @@ Cliste CMS
 ================================================
 * Brian Martin
 * https://twitter.com/bmarti44
-* Public Domain
+* BSD License
 * 2012-11-3
 
 What is it?
