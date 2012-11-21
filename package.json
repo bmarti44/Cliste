@@ -1,7 +1,7 @@
 {
 	"name": "cliste",
 	"description": "Cliste, a NodeJS CMS",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"homepage": "http://www.brianmartin.com",
 	"repository": {
 		"type": "git",
