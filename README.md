@@ -23,11 +23,13 @@ npm install cliste && git clone https://github.com/bmarti44/Cliste.git ./
 
 This will install cliste and check it out into the current working directory. Just run "node index.js" and you're good to go!
 
-Point your browser to http://localhost and the site should load up
+Point your browser to http://localhost:8888 and the site should load up
 
 If you get an error, make sure MongoDB is running. Type mongo and see if it logs you in.
 
 If you get a connect error then mongo isn't running. Type "mongod --fork" to start an instance of mongo.
+
+If the server throws an error, make sure there isn't anything else running on port 8888
 
 Module Creation
 --------
