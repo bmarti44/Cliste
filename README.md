@@ -5,7 +5,7 @@ Cliste CMS
 * BSD License
 * 2012-11-3
 
-**** LOOKING FOR CO-MAINTAINERS, CONTACT brian@brianmartin.com ****
+LOOKING FOR CO-MAINTAINERS, CONTACT brian@brianmartin.com
 -------------------------------------------------------------------
 
 What is it?
