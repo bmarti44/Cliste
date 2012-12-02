@@ -5,6 +5,9 @@ Cliste CMS
 * BSD License
 * 2012-11-3
 
+**** LOOKING FOR CO-MAINTAINERS, CONTACT brian@brianmartin.com ****
+-------------------------------------------------------------------
+
 What is it?
 -----------
 This is currently a work in progress, any developers that want to help let me know!
@@ -31,8 +34,16 @@ If you get a connect error then mongo isn't running. Type "mongod --fork" to sta
 
 If the server throws an error, make sure there isn't anything else running on port 8888
 
+Important Notes
+---------------
+If you need to serve files to the client side, put them in "/sites/all/file" . Only files in that directory can be served
+
+to the client. All other files are treated as Server Side, and will not be returned to the client.
+
+Stay tuned for more detailed information on emitters/events and corresponding callbacks.
+
 Module Creation
---------
+---------------
 1. To create a new module, create a new folder at /sites/all/module/{{module-name}}
 2. Create a file called index.js inside the folder you just created
 3. If needed, create a folder called template, and add any handlebars templates you might need
