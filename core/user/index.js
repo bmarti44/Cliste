@@ -95,9 +95,12 @@
 				}, function (error, item) {
 					
 				});
-				
+				console.log(currentUser);
 				global.cliste.core.theme.updateModel('login', currentUser);
-				
+				global.cliste.core.theme.updateModel('admin', {
+					'text': 'Hello!',
+					'user': currentUser
+				});
 				global.cliste.core.cliste.goTo('/admin');
 			}
 			
@@ -122,6 +125,24 @@
 	};
 	
 	user.getUser = function (SID) {
+		
+		if (SID !== false) {
+			
+			global.cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
+				
+				if (user.length) {
+					currentUser = user;
+					global.cliste.core.theme.updateModel('login', currentUser);
+				}
+				
+			});
+		}
+		
+		return currentUser;
+	};
+	
+	user.getCurrentUser = function () {
+		var SID = global.cliste.core.cliste.getCookie('SESSION');
 		
 		if (SID !== false) {
 			

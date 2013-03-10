@@ -71,10 +71,11 @@
 		});
 	};
 	
-	cliste.getCookie = function (name, request) {
+	cliste.getCookie = function (name) {
 		var cookies = {},
 			parts,
-			result = false;
+			result = false,
+			request = global.cliste.settings.request;
 		
 		if (request.headers.cookie)	 {
 			request.headers.cookie.split(';').forEach(function( cookie ) {
