@@ -67,7 +67,7 @@
 			try {
 				
 				global.cliste.tools.emitter.emit('onConnect', request.url);
-				
+				headers = {};
 				// if there is a valid path or valid alias
 				if (typeof(paths[request.url]) !== 'undefined' || typeof(aliases[request.url]) !== 'undefined') {
 					// force the header to be text/html

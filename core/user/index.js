@@ -51,14 +51,24 @@
 	 *		Return the HTML for the home page
 	 */
 	user.getLoginForm = function(request, response) {
-
+		global.cliste.core.user.getCurrentUser(function (error, user) {
+			var currentUser = false;
+			
+			if (user.length) {
+				currentUser = user[0];
+				global.cliste.core.theme.updateModel('login', currentUser);
+			} else {
+				global.cliste.core.theme.updateModel('login', false);
+			}
+			
+		});
+		
 		if (typeof(request.postData) !== 'undefined') {
 			response.stop = false;
 			user.login(request, response, querystring.parse(request.postData));
 		} else {
 			response.write(global.cliste.core.theme.process('login'));
 		}
-		
 	};
 	
 	user.login = function (request, response, data) {
@@ -74,7 +84,7 @@
 				
 			if (user.length) {
 				
-				session = cipher.update(user[0]._id.toString()).digest() + random;
+				session = cipher.update(user[0]._id.toString() + (random * Date.now())).digest() + random;
 				
 				sessions.push({
 					'SID': session,
@@ -95,12 +105,14 @@
 				}, function (error, item) {
 					
 				});
-				console.log(currentUser);
+				
 				global.cliste.core.theme.updateModel('login', currentUser);
+				
 				global.cliste.core.theme.updateModel('admin', {
 					'text': 'Hello!',
 					'user': currentUser
 				});
+				
 				global.cliste.core.cliste.goTo('/admin');
 			}
 			
@@ -141,22 +153,16 @@
 		return currentUser;
 	};
 	
-	user.getCurrentUser = function () {
-		var SID = global.cliste.core.cliste.getCookie('SESSION');
+	user.getCurrentUser = function (callback) {
+		var SID = global.cliste.core.cliste.getCookie('SESSION'),
+			currentUser = false;
 		
 		if (SID !== false) {
-			
-			global.cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
-				
-				if (user.length) {
-					currentUser = user;
-					global.cliste.core.theme.updateModel('login', currentUser);
-				}
-				
-			});
+			global.cliste.core.database.query('user', {'session': SID}, {}, callback);
+		} else {
+			callback(null, false);
 		}
 		
-		return currentUser;
 	};
 	
 	user.setUser = function (SID) {
