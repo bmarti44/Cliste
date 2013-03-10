@@ -79,12 +79,18 @@
 		
 		global.cliste.core.database.query('user', credentials, {}, function (error, user) {
 			var random = Math.floor(Math.random() * 1000000000000000001),
-				cipher = crypto.createHash('md5'),
-				session;
+				random1 = Math.floor(Math.random() * 1000000000000000001),
+				random2 = Math.floor(Math.random() * 1000000000000000001),
+				random3 = Math.floor(Math.random() * 1000000000000000001),
+				random4 = Math.floor(Math.random() * 1000000000000000001),
+				session = '';
 				
 			if (user.length) {
 				
-				session = cipher.update(user[0]._id.toString() + (random * Date.now())).digest().replace('"', '!').replace(';', '$') + random;
+				session += crypto.createHash('md5').update(crypto.createHash('md5').update(random2.toString()).digest("hex") + Date.now().toString()).digest("hex");
+				session += crypto.createHash('md5').update(crypto.createHash('md5').update(random1.toString()).digest("hex") + Date.now().toString()).digest("hex");
+				session += crypto.createHash('md5').update(crypto.createHash('md5').update(random3.toString()).digest("hex") + Date.now().toString()).digest("hex");
+				session += crypto.createHash('md5').update(crypto.createHash('md5').update(random4.toString()).digest("hex") + Date.now().toString()).digest("hex");
 				
 				sessions.push({
 					'SID': session,

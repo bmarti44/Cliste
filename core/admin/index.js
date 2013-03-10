@@ -48,7 +48,6 @@
 	admin.getHTML = function (request, response) {
 		global.cliste.core.user.getCurrentUser(function (error, user) {
 			var currentUser = false;
-			console.log('hit');
 			if (user.length) {
 				currentUser = user[0];
 				global.cliste.core.theme.updateModel('admin', {
