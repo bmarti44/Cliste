@@ -98,6 +98,7 @@
 				
 				global.cliste.core.theme.updateModel('login', currentUser);
 				
+				global.cliste.core.cliste.goTo('/admin', response);
 			}
 			
 			response.write(global.cliste.core.theme.process('login'));

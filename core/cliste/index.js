@@ -48,6 +48,14 @@
 		});
 	};
 	
+	cliste.goTo = function(route, response) {
+		
+		headers.Location = route;
+		response.writeHead(302, headers);
+		delete headers.Location;
+			
+	};
+	
 	/**
 	 * Get the headers to output for the current page
      * @return {Object}
@@ -91,6 +99,9 @@
 		
 	};
 	
+	cliste.clearHeaders = function() {
+		headers = {};
+	};
 	/**
 	 * Return the admin module to the global scope
 	 */
