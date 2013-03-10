@@ -84,7 +84,7 @@
 				
 			if (user.length) {
 				
-				session = cipher.update(user[0]._id.toString() + (random * Date.now())).digest() + random;
+				session = cipher.update(user[0]._id.toString() + (random * Date.now())).digest().replace('"', '!').replace(';', '$') + random;
 				
 				sessions.push({
 					'SID': session,
