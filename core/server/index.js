@@ -90,10 +90,13 @@
 					}
 					
 					request.on('end', function () {
+						global.cliste.settings.request = request;
 						global.cliste.tools.emitter.emit('updateModel', request.url);
 					});
 					
 					request.on('end', function () {
+						global.cliste.settings.request = request;
+						global.cliste.settings.response = response;
 						html = global.cliste[paths[url].type][paths[url].name][paths[url].callback](request, response);
 					});
 					

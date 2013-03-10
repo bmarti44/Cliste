@@ -47,8 +47,8 @@
 	 */
 	admin.getHTML = function (request, response) {
 		
-		response.write(global.cliste.core.theme.process('admin'));
-		response.end();
+		global.cliste.settings.response.write(global.cliste.core.theme.process('admin'));
+		global.cliste.settings.response.end();
 		
 	};
 	

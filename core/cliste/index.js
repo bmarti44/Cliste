@@ -48,12 +48,12 @@
 		});
 	};
 	
-	cliste.goTo = function(route, response) {
+	cliste.goTo = function(route) {
 		
 		headers.Location = route;
-		response.writeHead(302, headers);
+		global.cliste.settings.response.writeHead(302, headers);
 		delete headers.Location;
-			
+		
 	};
 	
 	/**
