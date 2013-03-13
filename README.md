@@ -163,4 +163,5 @@ Compatibility
 2. Requires [Handlebars.js](https://github.com/wycats/handlebars.js/ "Handlebars.js")
 3. Requires [MongoDB](http://www.mongodb.org "MongoDB")
 4. Requires [Mongoose](http://mongoosejs.com/ "Mongoose")
+5. Requires Underscore
  
