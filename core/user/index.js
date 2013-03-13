@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -41,7 +41,7 @@
 	 */
 	user.addUser = function (data) {
 	
-		global.cliste.core.database.addDocument('user', data);
+		cliste.core.database.addDocument('user', data);
 		
 	};
 	
@@ -51,14 +51,14 @@
 	 *		Return the HTML for the home page
 	 */
 	user.getLoginForm = function(request, response) {
-		global.cliste.core.user.getCurrentUser(function (error, user) {
+		cliste.core.user.getCurrentUser(function (error, user) {
 			var currentUser = false;
 			
 			if (user.length) {
 				currentUser = user[0];
-				global.cliste.core.theme.updateModel('login', currentUser);
+				cliste.core.theme.updateModel('login', currentUser);
 			} else {
-				global.cliste.core.theme.updateModel('login', false);
+				cliste.core.theme.updateModel('login', false);
 			}
 			
 		});
@@ -67,7 +67,7 @@
 			response.stop = false;
 			user.login(request, response, querystring.parse(request.postData));
 		} else {
-			response.write(global.cliste.core.theme.process('login'));
+			response.write(cliste.core.theme.process('login'));
 		}
 	};
 	
@@ -77,7 +77,7 @@
 			'password': data.password
 		};
 		
-		global.cliste.core.database.query('user', credentials, {}, function (error, user) {
+		cliste.core.database.query('user', credentials, {}, function (error, user) {
 			var random = Math.floor(Math.random() * 1000000000000000001),
 				random1 = Math.floor(Math.random() * 1000000000000000001),
 				random2 = Math.floor(Math.random() * 1000000000000000001),
@@ -98,11 +98,11 @@
 					'expires': Date.now() + 1209600000
 				});
 				
-				global.cliste.core.cliste.setCookie('SESSION=' + session);
+				cliste.core.cliste.setCookie('SESSION=' + session);
 				
 				currentUser = user[0];
 				
-				global.cliste.core.database.update('user', {
+				cliste.core.database.update('user', {
 					'username': user[0].username,
 					'password': user[0].password
 				},
@@ -112,17 +112,17 @@
 					
 				});
 				
-				global.cliste.core.theme.updateModel('login', currentUser);
+				cliste.core.theme.updateModel('login', currentUser);
 				
-				global.cliste.core.theme.updateModel('admin', {
+				cliste.core.theme.updateModel('admin', {
 					'text': 'Hello!',
 					'user': currentUser
 				});
 				
-				global.cliste.core.cliste.goTo('/admin');
+				cliste.core.cliste.goTo('/admin');
 			}
 			
-			response.write(global.cliste.core.theme.process('login'));
+			response.write(cliste.core.theme.process('login'));
 			response.end();
 		});
 	};
@@ -138,7 +138,7 @@
 			user.validateRegistration(querystring.parse(request.postData));
 		}
 		
-		response.write(global.cliste.core.theme.process('register'));
+		response.write(cliste.core.theme.process('register'));
 		
 	};
 	
@@ -146,11 +146,11 @@
 		
 		if (SID !== false) {
 			
-			global.cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
+			cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
 				
 				if (user.length) {
 					currentUser = user;
-					global.cliste.core.theme.updateModel('login', currentUser);
+					cliste.core.theme.updateModel('login', currentUser);
 				}
 				
 			});
@@ -160,11 +160,11 @@
 	};
 	
 	user.getCurrentUser = function (callback) {
-		var SID = global.cliste.core.cliste.getCookie('SESSION'),
+		var SID = cliste.core.cliste.getCookie('SESSION'),
 			currentUser = false;
 		
 		if (SID !== false) {
-			global.cliste.core.database.query('user', {'session': SID}, {}, callback);
+			cliste.core.database.query('user', {'session': SID}, {}, callback);
 		} else {
 			callback(null, false);
 		}
@@ -177,11 +177,11 @@
 		for (i = 0; i < sessions.length; i += 1) {
 			
 			if (SID === sessions.SID) {
-				global.cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
+				cliste.core.database.query('user', {'session': SID}, {}, function (error, user) {
 					
 					if (user.length) {
 						currentUser = user;
-						global.cliste.core.theme.updateModel('login', currentUser);
+						cliste.core.theme.updateModel('login', currentUser);
 					}
 					
 				});
@@ -196,12 +196,12 @@
 		callback({
 			'login': { // name it home
 				'parent': 'page', // make it's parent page.handlebars
-				'view': global.cliste.core.file.getSource('core', 'user', 'template/login.handlebars'), // set the view as the source of home.handlebars
+				'view': cliste.core.file.getSource('core', 'user', 'template/login.handlebars'), // set the view as the source of home.handlebars
 				'model': {}
 			},
 			'register': { // name it home
 				'parent': 'page', // make it's parent page.handlebars
-				'view': global.cliste.core.file.getSource('core', 'user', 'template/register.handlebars'), // set the view as the source of home.handlebars
+				'view': cliste.core.file.getSource('core', 'user', 'template/register.handlebars'), // set the view as the source of home.handlebars
 				'model': {}
 			}
 		});
@@ -231,7 +231,7 @@
 	};
 	
 	user.setSchema = function () {
-		global.cliste.core.database.addSchema('user', {
+		cliste.core.database.addSchema('user', {
 			'firstname': String,
 			'lastname': String,
 			'username': String,
@@ -247,7 +247,7 @@
 	};
 	
 	user.setModel = function () {
-		global.cliste.core.database.addModel('user');
+		cliste.core.database.addModel('user');
 	};
 	
 	user.tests = {
@@ -256,11 +256,11 @@
 		}
 	};
 	
-	global.cliste.tools.emitter.on('initialize', user.initialize);
-	global.cliste.tools.emitter.on('addTheme', user.addTheme);
-	global.cliste.tools.emitter.on('addPath', user.addPath);
-	global.cliste.tools.emitter.on('addSchema', user.setSchema);
-	global.cliste.tools.emitter.on('addModel', user.setModel);
+	cliste.on('initialize', user.initialize);
+	cliste.on('addTheme', user.addTheme);
+	cliste.on('addPath', user.addPath);
+	cliste.on('addSchema', user.setSchema);
+	cliste.on('addModel', user.setModel);
 	
 	module.exports = user;
 	

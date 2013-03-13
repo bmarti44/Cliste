@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, cliste: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -21,7 +21,7 @@
 	 * This will be called once when the server starts
 	 */
 	admin.initialize = function () {
-		global.cliste.core.path.addPath({
+		cliste.core.path.addPath({
 			'/admin': {
 				'type': 'core',
 				'name': 'admin',
@@ -29,10 +29,10 @@
 			}
 		});
 		
-		global.cliste.core.theme.addTheme({
+		cliste.core.theme.addTheme({
 			'admin': {
 				'parent': 'page',
-				'view': global.cliste.core.file.getSource('core', 'admin', 'template/admin.handlebars'),
+				'view': cliste.core.file.getSource('core', 'admin', 'template/admin.handlebars'),
 				'model': {
 					'text': 'admin page'
 				}
@@ -46,16 +46,16 @@
 	 *		HTML for the admin page
 	 */
 	admin.getHTML = function (request, response) {
-		global.cliste.core.user.getCurrentUser(function (error, user) {
+		cliste.core.user.getCurrentUser(function (error, user) {
 			var currentUser = false;
 			if (user.length) {
 				currentUser = user[0];
-				global.cliste.core.theme.updateModel('admin', {
+				cliste.core.theme.updateModel('admin', {
 					'text': 'Admin Page',
 					'user': currentUser
 				});
 			} else {
-				global.cliste.core.theme.updateModel('admin', {
+				cliste.core.theme.updateModel('admin', {
 					'text': 'Unauthorized',
 					'user': false
 				});
@@ -63,8 +63,8 @@
 			
 		});
 		
-		global.cliste.settings.response.write(global.cliste.core.theme.process('admin'));
-		global.cliste.settings.response.end();
+		cliste.settings.response.write(cliste.core.theme.process('admin'));
+		cliste.settings.response.end();
 	
 	};
 	
@@ -82,7 +82,7 @@
 	 * Return the admin module to the global scope
 	 */
 	
-	global.cliste.tools.emitter.on('initialize', admin.initialize);
+	cliste.on('initialize', admin.initialize);
 	
 	module.exports = admin;
 	

@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -31,7 +31,7 @@
 	 */
 	home.getHTML = function(request, response) {
 		
-		response.write(global.cliste.core.theme.process('home'));
+		response.write(cliste.core.theme.process('home'));
 		
 	};
 	
@@ -40,7 +40,7 @@
 		callback({
 			'home': { // name it home
 				'parent': 'page', // make it's parent page.handlebars
-				'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
+				'view': cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
 				'model': { // pass the model
 					'text': 'frontpage'
 				}
@@ -82,10 +82,10 @@
 	/**
 	 * Set listeners for emitter
 	 */
-	global.cliste.tools.emitter.on('initialize', home.initialize);
-	global.cliste.tools.emitter.on('addTheme', home.addTheme);
-	global.cliste.tools.emitter.on('addPath', home.addPath);
-	global.cliste.tools.emitter.on('addAlias', home.addAlias);
+	cliste.tools.emitter.on('initialize', home.initialize);
+	cliste.tools.emitter.on('addTheme', home.addTheme);
+	cliste.tools.emitter.on('addPath', home.addPath);
+	cliste.tools.emitter.on('addAlias', home.addAlias);
 	
 	/**
 	 * Return the user module to the global scope

@@ -81,7 +81,7 @@ An example of the home module:
 			 */
 			home.getHTML = function(request, response) {
 			
-				response.write(global.cliste.core.theme.process('home'));
+				response.write(cliste.core.theme.process('home'));
 
 			};
 			
@@ -94,7 +94,7 @@ An example of the home module:
 				callback({
 					'home': { // name it home
 						'parent': 'page', // make it's parent page.handlebars
-						'view': global.cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
+						'view': cliste.core.file.getSource('module', 'home', 'template/home.handlebars'), // set the view as the source of home.handlebars
 						'model': { // pass the model
 							'text': 'frontpage'
 						}
@@ -145,10 +145,10 @@ An example of the home module:
 			/**
 			 * Set listeners for emitter hooks
 			 */
-			global.cliste.tools.emitter.on('initialize', home.initialize);
-			global.cliste.tools.emitter.on('addTheme', home.addTheme);
-			global.cliste.tools.emitter.on('addPath', home.addPath);
-			global.cliste.tools.emitter.on('addAlias', home.addAlias);
+			cliste.on('initialize', home.initialize);
+			cliste.on('addTheme', home.addTheme);
+			cliste.on('addPath', home.addPath);
+			cliste.on('addAlias', home.addAlias);
 			
 			/**
 			 * Return the user module to the global scope

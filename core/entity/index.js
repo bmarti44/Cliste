@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -37,7 +37,7 @@
 	};
 	
 	entity.setSchema = function () {
-		global.cliste.core.database.addSchema('entity', {
+		cliste.core.database.addSchema('entity', {
 			'type': String,
 			'name': String,
 			'content': String
@@ -46,12 +46,12 @@
 	};
 	
 	entity.setModel = function () {
-		global.cliste.core.database.addModel('entity');
+		cliste.core.database.addModel('entity');
 	};
 	
-	global.cliste.tools.emitter.on('initialize', entity.initialize);
-	global.cliste.tools.emitter.on('addSchema', entity.setSchema);
-	global.cliste.tools.emitter.on('addModel', entity.setModel);
+	cliste.tools.emitter.on('initialize', entity.initialize);
+	cliste.tools.emitter.on('addSchema', entity.setSchema);
+	cliste.tools.emitter.on('addModel', entity.setModel);
 	
 	module.exports = entity;
 	

@@ -1,11 +1,12 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global module: false, global: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global module: false, cliste: true, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 (function () {
 	'use strict';
 	
 	var requireDir = require('require-dir'),
 		events = require('events'),
+		underscore = require('underscore'),
 		emitter = new events.EventEmitter(),
 		util = require('util'),
 		count = 0,
@@ -15,9 +16,7 @@
 		themes,
 		processor;
 	
-	emitter.setMaxListeners(0);
-	
-	global.cliste = {
+	cliste = {
 		'settings': false,
 		'core': false,
 		'module': false,
@@ -27,15 +26,19 @@
 		}
 	};
 	
+	emitter.setMaxListeners(0);
+	
+	underscore.extend(cliste, events.EventEmitter.prototype);
+	
 	settings = require('./sites/default/settings.js');
 	core = requireDir('./core', {recurse: true});
 	modules = requireDir('./sites/all/module', {recurse: true});
 	themes = requireDir('./sites/all/theme', {recurse: true});
 	
-	global.cliste.settings = settings;
-	global.cliste.core = core;
-	global.cliste.module = modules;
-	global.cliste.themes = themes;
+	cliste.settings = settings;
+	cliste.core = core;
+	cliste.module = modules;
+	cliste.themes = themes;
 
 	Object.keys(core).forEach(function(key) {
 	    
@@ -57,6 +60,6 @@
 	
 	core.bootstrap.start();
 	
-	module.exports = global.cliste;
+	module.exports = cliste;
 	
 }());

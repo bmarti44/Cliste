@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -26,10 +26,10 @@
 	 * This will be called once when the server starts
 	 */
 	theme.initialize = function () {
-		global.cliste.tools.emitter.emit('addHead', theme.addHead);
-		global.cliste.tools.emitter.emit('addJS', theme.addJS);
-		global.cliste.tools.emitter.emit('addCSS', theme.addCSS);
-		global.cliste.tools.emitter.emit('addTheme', theme.addTheme);
+		cliste.tools.emitter.emit('addHead', theme.addHead);
+		cliste.tools.emitter.emit('addJS', theme.addJS);
+		cliste.tools.emitter.emit('addCSS', theme.addCSS);
+		cliste.tools.emitter.emit('addTheme', theme.addTheme);
 	};
 	
 	theme.updateModel = function (key, model) {
@@ -59,13 +59,13 @@
 		
 		// compile the handlebars for the parent theme
 		if (typeof(themes[name].compiledParent) === 'undefined') {
-			themes[name].compiledParent = handlebars.compile(global.cliste.core.file.getSource('theme', global.cliste.settings.theme, 'template/' + themes[name].parent + '.handlebars'));
+			themes[name].compiledParent = handlebars.compile(cliste.core.file.getSource('theme', cliste.settings.theme, 'template/' + themes[name].parent + '.handlebars'));
 		}
 		
 		// compile the model for the parent them, and pass the child theme as content
 		model = {
-			'css': global.cliste.core.theme.getCSS(),
-			'js': global.cliste.core.theme.getJS(),
+			'css': cliste.core.theme.getCSS(),
+			'js': cliste.core.theme.getJS(),
 			'content': themes[name].compiled(themes[name].model)
 		};
 		
@@ -179,16 +179,16 @@
 		}
 		
 		if (typeof(themes['404'].compiled) !== 'function') { 
-			themes['404'].compiled = handlebars.compile(global.cliste.core.file.getSource('theme', global.cliste.settings.theme, 'template/404.handlebars'));
+			themes['404'].compiled = handlebars.compile(cliste.core.file.getSource('theme', cliste.settings.theme, 'template/404.handlebars'));
 		}
 		
 		if (typeof(themes['404'].compiledParent) !== 'function') { 
-			themes['404'].compiledParent = handlebars.compile(global.cliste.core.file.getSource('theme', global.cliste.settings.theme, 'template/page.handlebars'));
+			themes['404'].compiledParent = handlebars.compile(cliste.core.file.getSource('theme', cliste.settings.theme, 'template/page.handlebars'));
 		}
 		
 		model = {
-			'css': global.cliste.core.theme.getCSS(),
-			'js': global.cliste.core.theme.getJS(),
+			'css': cliste.core.theme.getCSS(),
+			'js': cliste.core.theme.getJS(),
 			'content': themes['404'].compiled(themes['404'].model)
 		};
 		
@@ -209,7 +209,7 @@
 	 * Return the theme module to the global scope
 	 */	
 	
-	global.cliste.tools.emitter.on('initialize', theme.initialize);
+	cliste.tools.emitter.on('initialize', theme.initialize);
 	
 	module.exports = theme;
 	

@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -23,7 +23,7 @@
 	 * This will be called once when the server starts
 	 */
 	path.initialize = function () {
-		global.cliste.tools.emitter.emit('addPath', path.addPath);
+		cliste.tools.emitter.emit('addPath', path.addPath);
 	};
 	
 	/**
@@ -61,15 +61,15 @@
 	path.getFilePath = function (type, name, path) {
 		
 		if (type === 'core') {
-			return global.cliste.settings.base + '/' + type + '/' + name + '/' + path;
+			return cliste.settings.base + '/' + type + '/' + name + '/' + path;
 		}
 		
 		if (type === 'module') {
-			return global.cliste.settings.base + '/sites/all/' + type + '/' + name + '/' + path;
+			return cliste.settings.base + '/sites/all/' + type + '/' + name + '/' + path;
 		}
 		
 		if (type === 'theme') {
-			return global.cliste.settings.base + '/sites/all/' + type + '/' + name + '/' + path;
+			return cliste.settings.base + '/sites/all/' + type + '/' + name + '/' + path;
 		}
 		
 	};
@@ -87,7 +87,7 @@
 	 * Return the path module to the global scope
 	 */	
 	
-	global.cliste.tools.emitter.on('initialize', path.initialize);
+	cliste.tools.emitter.on('initialize', path.initialize);
 	
 	module.exports = path;
 	

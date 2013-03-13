@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -26,8 +26,8 @@
 	 * This will be called once when the server starts
 	 */
 	database.initialize = function () {
-		global.cliste.tools.emitter.emit('addSchema');
-		global.cliste.tools.emitter.emit('addModel');
+		cliste.tools.emitter.emit('addSchema');
+		cliste.tools.emitter.emit('addModel');
 	};
 	
 	/**
@@ -133,7 +133,7 @@
 	 * Return the database module to the global scope
 	 */
 	
-	global.cliste.tools.emitter.on('initialize', database.initialize);
+	cliste.tools.emitter.on('initialize', database.initialize);
 	
 	module.exports = database;
 	

@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -51,7 +51,7 @@
 	cliste.goTo = function(route) {
 		
 		headers.Location = route;
-		global.cliste.settings.response.writeHead(302, headers);
+		cliste.settings.response.writeHead(302, headers);
 		delete headers.Location;
 		
 	};
@@ -66,7 +66,7 @@
 	};
 	
 	cliste.setCookie = function (cookie) {
-		global.cliste.core.cliste.setHeader({
+		cliste.core.cliste.setHeader({
 			'Set-Cookie': cookie
 		});
 	};
@@ -75,7 +75,7 @@
 		var cookies = {},
 			parts,
 			result = false,
-			request = global.cliste.settings.request;
+			request = cliste.settings.request;
 		
 		if (request.headers.cookie)	 {
 			request.headers.cookie.split(';').forEach(function( cookie ) {
@@ -107,7 +107,7 @@
 	 * Return the admin module to the global scope
 	 */
 	
-	global.cliste.tools.emitter.on('initialize', cliste.initialize);
+	cliste.tools.emitter.on('initialize', cliste.initialize);
 	
 	module.exports = cliste;
 	

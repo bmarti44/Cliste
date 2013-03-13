@@ -1,5 +1,5 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global global: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global cliste: false, module: false, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 /**
  *	@description
@@ -45,7 +45,7 @@
      *		The path inside the core, module or theme
 	 */
 	file.getSource = function (type, name, path) {
-		var content = fs.readFileSync(global.cliste.core.path.getFilePath(type, name, path), 'utf8');
+		var content = fs.readFileSync(cliste.core.path.getFilePath(type, name, path), 'utf8');
 		
 		return content;
 		
@@ -82,7 +82,7 @@
 	 * Return the file module to the global scope
 	 */
 	
-	global.cliste.tools.emitter.on('initialize', file.initialize);
+	cliste.tools.emitter.on('initialize', file.initialize);
 	
 	module.exports = file;
 	
