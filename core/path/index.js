@@ -23,7 +23,7 @@
 	 * This will be called once when the server starts
 	 */
 	path.initialize = function () {
-		cliste.tools.emitter.emit('addPath', path.addPath);
+		cliste.emit('addPath', path.addPath);
 	};
 	
 	/**
@@ -87,7 +87,7 @@
 	 * Return the path module to the global scope
 	 */	
 	
-	cliste.tools.emitter.on('initialize', path.initialize);
+	cliste.on('initialize', path.initialize);
 	
 	module.exports = path;
 	

@@ -43,7 +43,7 @@
 	 * @private
 	 */
 	createServer = function () {
-		var headers = cliste.core.cliste.getHeaders(),
+		var headers = cliste.core.helper.getHeaders(),
 			paths = cliste.core.path.getPaths(),
 			aliases = cliste.core.alias.getAliases(),
 			fileServer = new (httpStatic.Server)('./', {
@@ -66,16 +66,16 @@
 			
 			try {
 				
-				cliste.tools.emitter.emit('onConnect', request.url);
+				cliste.emit('onConnect', request.url);
 				headers = {};
 				// if there is a valid path or valid alias
 				if (typeof(paths[request.url]) !== 'undefined' || typeof(aliases[request.url]) !== 'undefined') {
 					// force the header to be text/html
-					cliste.core.cliste.setHeader({
+					cliste.core.helper.setHeader({
 						'Content-Type': 'text/html'
 					});
 					
-					cliste.tools.emitter.emit('addHeaders', request.url);
+					cliste.emit('addHeaders', request.url);
 					
 					response.stop = true;
 					
@@ -91,7 +91,7 @@
 					
 					request.on('end', function () {
 						cliste.settings.request = request;
-						cliste.tools.emitter.emit('updateModel', request.url);
+						cliste.emit('updateModel', request.url);
 					});
 					
 					request.on('end', function () {
@@ -106,7 +106,7 @@
 						}
 					});
 					
-					cliste.tools.emitter.emit('onConnectSuccess', request.url);
+					cliste.emit('onConnectSuccess', request.url);
 					
 				} else { // there is no path or alias for this URL
 					
@@ -124,19 +124,19 @@
 						        fileServer.serve(request, response, function (error, result) {
 									
 									if (error && (error.status === 404)) {
-										cliste.core.cliste.setHeader({
+										cliste.core.helper.setHeader({
 											'Content-Type': 'text/html'
 										});
 										response.writeHead(404, headers);
 										html = cliste.core.theme.get404();
-										cliste.tools.emitter.emit('onConnectNotFound', request.url);
+										cliste.emit('onConnectNotFound', request.url);
 										return true;
 									}
 									
 						            if (error) { // There was an error serving the file
 						                console.log(error);
 						                // Respond to the client
-						                cliste.core.cliste.setHeader({
+						                cliste.core.helper.setHeader({
 											'Content-Type': 'text/plain'
 										});
 										
@@ -145,7 +145,7 @@
 										// write the exception to the server and error out gracefully
 										html = error.toString();
 										
-										cliste.tools.emitter.emit('onConnectError', request.url);
+										cliste.emit('onConnectError', request.url);
 										
 										response.write(html);
 										response.end();
@@ -160,7 +160,7 @@
 						} // the URL is not in the /sites/all/file folder
 							
 						// since it isn't in the /sites/all/file folder, we don't want to show it
-						cliste.core.cliste.setHeader({
+						cliste.core.helper.setHeader({
 							'Content-Type': 'text/html'
 						});
 						
@@ -168,12 +168,12 @@
 						
 						html = cliste.core.theme.get404();
 						
-						cliste.tools.emitter.emit('onConnectNotFound', request.url);
+						cliste.emit('onConnectNotFound', request.url);
 						
 					} else { // the file doesn't exist
 						
 						// show the 404 page
-						cliste.core.cliste.setHeader({
+						cliste.core.helper.setHeader({
 							'Content-Type': 'text/html'
 						});
 						
@@ -182,20 +182,20 @@
 						response.write(cliste.core.theme.get404());
 						response.end();
 						
-						cliste.tools.emitter.emit('onConnectNotFound', request.url);
+						cliste.emit('onConnectNotFound', request.url);
 						
 					}
 					
 				}
 				
-				cliste.tools.emitter.emit('onConnectionEnd', request, response, html);
+				cliste.emit('onConnectionEnd', request, response, html);
 				
 			} catch (exception) { // oops something went wrong!
 				
 				console.log(exception); // log the exception to the server
 				
 				// set the content type to text
-				cliste.core.cliste.setHeader({
+				cliste.core.helper.setHeader({
 					'Content-Type': 'text/plain'
 				});
 				
@@ -229,7 +229,7 @@
 		return false;
 	};
 	
-	cliste.tools.emitter.on('initialize', server.initialize);
+	cliste.on('initialize', server.initialize);
 	
 	module.exports = server;
 	

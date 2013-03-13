@@ -23,7 +23,7 @@
 	 * This will be called once when the server starts
 	 */
 	alias.initialize = function () {
-		cliste.tools.emitter.emit('addAlias', alias.addAlias);
+		cliste.emit('addAlias', alias.addAlias);
 	};
 	
 	/**
@@ -62,7 +62,7 @@
 	 * Return the admin module to the global scope
 	 */
 	
-	cliste.tools.emitter.on('initialize', alias.initialize);
+	cliste.on('initialize', alias.initialize);
 	
 	module.exports = alias;
 	

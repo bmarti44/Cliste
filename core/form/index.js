@@ -38,7 +38,7 @@
 	 * Return the form module to the global scope
 	 */
 	
-	cliste.tools.emitter.on('initialize', form.initialize);
+	cliste.on('initialize', form.initialize);
 	
 	module.exports = form;
 	

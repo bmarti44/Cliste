@@ -45,7 +45,7 @@
 		var i;
 		
 		for (i = 0; i < customEvents.length; i += 1) {
-			cliste.tools.emitter.emit(customEvents[i]);
+			cliste.emit(customEvents[i]);
 	    }
 	    
 	};

@@ -38,7 +38,7 @@
 	 * Return the admin module to the global scope
 	 */
 	
-	cliste.tools.emitter.on('initialize', cache.initialize);
+	cliste.on('initialize', cache.initialize);
 	
 	module.exports = cache;
 	

@@ -82,10 +82,10 @@
 	/**
 	 * Set listeners for emitter
 	 */
-	cliste.tools.emitter.on('initialize', home.initialize);
-	cliste.tools.emitter.on('addTheme', home.addTheme);
-	cliste.tools.emitter.on('addPath', home.addPath);
-	cliste.tools.emitter.on('addAlias', home.addAlias);
+	cliste.on('initialize', home.initialize);
+	cliste.on('addTheme', home.addTheme);
+	cliste.on('addPath', home.addPath);
+	cliste.on('addAlias', home.addAlias);
 	
 	/**
 	 * Return the user module to the global scope

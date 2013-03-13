@@ -82,7 +82,7 @@
 	 * Return the file module to the global scope
 	 */
 	
-	cliste.tools.emitter.on('initialize', file.initialize);
+	cliste.on('initialize', file.initialize);
 	
 	module.exports = file;
 	

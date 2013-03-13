@@ -49,9 +49,9 @@
 		cliste.core.database.addModel('entity');
 	};
 	
-	cliste.tools.emitter.on('initialize', entity.initialize);
-	cliste.tools.emitter.on('addSchema', entity.setSchema);
-	cliste.tools.emitter.on('addModel', entity.setModel);
+	cliste.on('initialize', entity.initialize);
+	cliste.on('addSchema', entity.setSchema);
+	cliste.on('addModel', entity.setModel);
 	
 	module.exports = entity;
 	

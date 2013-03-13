@@ -26,10 +26,10 @@
 	 * This will be called once when the server starts
 	 */
 	theme.initialize = function () {
-		cliste.tools.emitter.emit('addHead', theme.addHead);
-		cliste.tools.emitter.emit('addJS', theme.addJS);
-		cliste.tools.emitter.emit('addCSS', theme.addCSS);
-		cliste.tools.emitter.emit('addTheme', theme.addTheme);
+		cliste.emit('addHead', theme.addHead);
+		cliste.emit('addJS', theme.addJS);
+		cliste.emit('addCSS', theme.addCSS);
+		cliste.emit('addTheme', theme.addTheme);
 	};
 	
 	theme.updateModel = function (key, model) {
@@ -209,7 +209,7 @@
 	 * Return the theme module to the global scope
 	 */	
 	
-	cliste.tools.emitter.on('initialize', theme.initialize);
+	cliste.on('initialize', theme.initialize);
 	
 	module.exports = theme;
 	

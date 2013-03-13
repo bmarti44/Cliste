@@ -46,7 +46,7 @@
 	 * Return the permission module to the global scope
 	 */	
 	
-	cliste.tools.emitter.on('initialize', permission.initialize);
+	cliste.on('initialize', permission.initialize);
 	
 	module.exports = permission;
 	

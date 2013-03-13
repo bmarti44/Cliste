@@ -98,7 +98,7 @@
 					'expires': Date.now() + 1209600000
 				});
 				
-				cliste.core.cliste.setCookie('SESSION=' + session);
+				cliste.core.helper.setCookie('SESSION=' + session);
 				
 				currentUser = user[0];
 				
@@ -119,7 +119,7 @@
 					'user': currentUser
 				});
 				
-				cliste.core.cliste.goTo('/admin');
+				cliste.core.helper.goTo('/admin');
 			}
 			
 			response.write(cliste.core.theme.process('login'));
@@ -160,7 +160,7 @@
 	};
 	
 	user.getCurrentUser = function (callback) {
-		var SID = cliste.core.cliste.getCookie('SESSION'),
+		var SID = cliste.core.helper.getCookie('SESSION'),
 			currentUser = false;
 		
 		if (SID !== false) {

@@ -26,8 +26,8 @@
 	 * This will be called once when the server starts
 	 */
 	database.initialize = function () {
-		cliste.tools.emitter.emit('addSchema');
-		cliste.tools.emitter.emit('addModel');
+		cliste.emit('addSchema');
+		cliste.emit('addModel');
 	};
 	
 	/**
@@ -133,7 +133,7 @@
 	 * Return the database module to the global scope
 	 */
 	
-	cliste.tools.emitter.on('initialize', database.initialize);
+	cliste.on('initialize', database.initialize);
 	
 	module.exports = database;
 	

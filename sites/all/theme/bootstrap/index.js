@@ -35,7 +35,7 @@
 		};
 	};
 	
-	cliste.tools.emitter.on('initialize', bootstrap.initialize);
+	cliste.on('initialize', bootstrap.initialize);
 	
 	module.exports = bootstrap;
 	

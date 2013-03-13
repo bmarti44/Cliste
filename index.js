@@ -1,12 +1,12 @@
 /*jslint devel: false, browser: true, maxerr: 50, indent: 4*/
-/*global module: false, cliste: true, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+/*global module: false, GLOBAL: true, cliste: true, $: false, jQuery: false, console: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 (function () {
 	'use strict';
 	
 	var requireDir = require('require-dir'),
 		events = require('events'),
-		underscore = require('underscore'),
+		_ = require('underscore'),
 		emitter = new events.EventEmitter(),
 		util = require('util'),
 		count = 0,
@@ -16,7 +16,7 @@
 		themes,
 		processor;
 	
-	cliste = {
+	GLOBAL.cliste = {
 		'settings': false,
 		'core': false,
 		'module': false,
@@ -28,7 +28,7 @@
 	
 	emitter.setMaxListeners(0);
 	
-	underscore.extend(cliste, events.EventEmitter.prototype);
+	_.extend(cliste, events.EventEmitter.prototype);
 	
 	settings = require('./sites/default/settings.js');
 	core = requireDir('./core', {recurse: true});

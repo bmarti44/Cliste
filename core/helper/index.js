@@ -3,25 +3,25 @@
 
 /**
  *	@description
- *		This module will be the main controller for cliste
+ *		This module will be the main controller for helper
  *	@author
  *		Brian Martin
  *	@version
  *		1.0.0
  *	@namespace
- *		Cliste
+ *		helper
  */
 (function() {
 	'use strict';
 	
-	var cliste = {},
+	var helper = {},
 		headers = {};
 	
 	/**
 	 * Implementation of hook.initialize()
 	 * This will be called once when the server starts
 	 */
-	cliste.initialize = function () {
+	helper.initialize = function () {
 		
 	};
 	
@@ -29,7 +29,7 @@
 	 * Implementation of hook.config()
 	 * This will return configuration options for this module
 	 */
-	cliste.config = function () {
+	helper.config = function () {
 		return {
 			'weight': 0
 		};
@@ -40,7 +40,7 @@
      * @param {Object} header
      *		The header(s) to set
 	 */
-	cliste.setHeader = function (header) {
+	helper.setHeader = function (header) {
 		Object.keys(header).forEach(function(key) {
 		    
 		    headers[key] = header[key];
@@ -48,7 +48,7 @@
 		});
 	};
 	
-	cliste.goTo = function(route) {
+	helper.goTo = function(route) {
 		
 		headers.Location = route;
 		cliste.settings.response.writeHead(302, headers);
@@ -61,17 +61,17 @@
      * @return {Object}
      *		The header(s)
 	 */
-	cliste.getHeaders = function () {
+	helper.getHeaders = function () {
 		return headers;
 	};
 	
-	cliste.setCookie = function (cookie) {
-		cliste.core.cliste.setHeader({
+	helper.setCookie = function (cookie) {
+		cliste.core.helper.setHeader({
 			'Set-Cookie': cookie
 		});
 	};
 	
-	cliste.getCookie = function (name) {
+	helper.getCookie = function (name) {
 		var cookies = {},
 			parts,
 			result = false,
@@ -100,15 +100,15 @@
 		
 	};
 	
-	cliste.clearHeaders = function() {
+	helper.clearHeaders = function() {
 		headers = {};
 	};
 	/**
 	 * Return the admin module to the global scope
 	 */
 	
-	cliste.tools.emitter.on('initialize', cliste.initialize);
+	cliste.on('initialize', helper.initialize);
 	
-	module.exports = cliste;
+	module.exports = helper;
 	
 }());
