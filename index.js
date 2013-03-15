@@ -26,9 +26,9 @@
 		}
 	};
 	
-	emitter.setMaxListeners(0);
-	
 	_.extend(cliste, events.EventEmitter.prototype);
+	
+	cliste.setMaxListeners(0);
 	
 	settings = require('./sites/default/settings.js');
 	core = requireDir('./core', {recurse: true});
